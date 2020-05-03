@@ -35,7 +35,7 @@ public class ApiData
             
             JsonElement element = JsonParser.parseReader(new InputStreamReader(request.getInputStream()));
             JsonObject obj = element.getAsJsonObject();
-            
+            //comment trial
             System.out.println("Checking JSON status"); 
             if(obj.get("status").getAsString().equals("ok"))
             {	  
