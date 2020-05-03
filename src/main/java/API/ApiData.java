@@ -18,16 +18,19 @@ public class ApiData
 {		
 	public static String test() 
 	{
-        return printStationNames(getTestJSON());
+        return printStationNames(getJSON());
     }
 
-    public static ArrayList<GasStation> getTestJSON() 
+    public static ArrayList<GasStation> getJSON() 
     {    	
         URL url;
         HttpURLConnection request;
+        // TO-DO: USE GEOCODE API HERE
+        float lat = 48.878708f;
+        float lon = 8.717344f;
         try 
         {
-            url = new URL(buildRequestString("48.878550", "8.717204", 5));
+            url = new URL(buildRequestString(lat, lon, 5));
             request = (HttpURLConnection) url.openConnection();
             request.setDoOutput(true);
             request.setRequestMethod("GET");
@@ -62,7 +65,7 @@ public class ApiData
     }
 
     //returns a https request string with the specified latitude, longitude and radius
-    public static String buildRequestString(String lat, String lon, double radius) 
+    public static String buildRequestString(float lat, float lon, double radius) 
     {
         return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + Api_Key.API_KEY;
     }
