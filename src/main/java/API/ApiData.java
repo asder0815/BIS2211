@@ -16,11 +16,6 @@ import com.google.gson.reflect.TypeToken;
 
 public class ApiData
 {		
-	public static String test() 
-	{
-        return printStationNames(getJSON());
-    }
-
     public static ArrayList<GasStation> getJSON() 
     {    	
         URL url;
@@ -68,16 +63,5 @@ public class ApiData
     public static String buildRequestString(float lat, float lon, double radius) 
     {
         return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + Api_Key.API_KEY;
-    }
-
-    public static String printStationNames(ArrayList<GasStation> list) 
-    {    	    	
-        String result = ""; 
-        for(GasStation gs: list)
-        {
-        	result = result + gs + "<br/>"; 
-        }
-        System.out.println(result); 
-        return result; 
     }
 }
