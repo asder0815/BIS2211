@@ -11,10 +11,10 @@ public class WebController
 		return gsList;
 	}	
 
-	public static String printGSTable()
+	public static String printGSTable(float lat, float lon)
 	{
 		String output = "<table> <tbody> <tr> <th>Name:</th> <th>Straße:</th> <th>Geöffnet:</th> </tr>"; 
-		getGSData();  
+		getGSData(lat, lon);  
 		for(GasStation gs : gsList)
 		{
 			output += ("<tr> <td>" + gs.getName() + "</td>"); 
@@ -28,9 +28,9 @@ public class WebController
 		return output; 		
 	}
 	
-	private static void getGSData()
+	private static void getGSData(float lat, float lon)
 	{
-		gsList = ApiData.getJSON(); 
+		gsList = ApiData.getJSON(lat, lon); 
 		System.out.println("Successfully got Gas Station data."); 
 	}
 }

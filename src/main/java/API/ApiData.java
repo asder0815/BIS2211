@@ -16,13 +16,10 @@ import com.google.gson.reflect.TypeToken;
 
 public class ApiData
 {		
-    public static ArrayList<GasStation> getJSON() 
+    public static ArrayList<GasStation> getJSON(float lat, float lon) 
     {    	
         URL url;
         HttpURLConnection request;
-        // TO-DO: USE GEOCODE API HERE
-        float lat = 48.878708f;
-        float lon = 8.717344f;
         try 
         {
             url = new URL(buildRequestString(lat, lon, 5));
