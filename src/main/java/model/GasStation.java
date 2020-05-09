@@ -17,6 +17,11 @@ public class GasStation
 	private String houseNumber; 
 	private String postCode; 
 	
+	public String getOpenStatus() {
+		if (this.isOpen == true)  return "geöffnet"; 
+		else	return "geschlossen";
+	}
+	
 	public String getId() {
 		return id;
 	}
