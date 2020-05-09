@@ -13,16 +13,14 @@ public class WebController
 
 	public static String printGSTable(float lat, float lon)
 	{
-		String output = ""; //"<table> <tbody> <tr> <th>Name:</th> <th>Straße:</th> <th>Geöffnet:</th> </tr>"; 
+		String output = "";
 		getGSData(lat, lon);  
 		for(GasStation gs : gsList)
 		{
 			output += ("<tr> <td>" + gs.getName() + "</td>"); 
 			output += ("<td>" + gs.getStreet() + "</td>");
 			output += ("<td>" + gs.isOpen() + "</td> </tr>");
-		}
-		//output += "</tbody> </table>";
-		
+		}		
 		System.out.println(output); 
 		
 		return output; 		
