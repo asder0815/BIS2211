@@ -16,18 +16,10 @@ import com.google.gson.reflect.TypeToken;
 
 public class ApiData
 {		
-	public static String test() 
-	{
-        return printStationNames(getJSON());
-    }
-
-    public static ArrayList<GasStation> getJSON() 
+    public static ArrayList<GasStation> getJSON(float lat, float lon) 
     {    	
         URL url;
         HttpURLConnection request;
-        // TO-DO: USE GEOCODE API HERE
-        float lat = 48.878708f;
-        float lon = 8.717344f;
         try 
         {
             url = new URL(buildRequestString(lat, lon, 5));
@@ -68,16 +60,5 @@ public class ApiData
     public static String buildRequestString(float lat, float lon, double radius) 
     {
         return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + Api_Key.API_KEY;
-    }
-
-    public static String printStationNames(ArrayList<GasStation> list) 
-    {    	    	
-        String result = ""; 
-        for(GasStation gs: list)
-        {
-        	result = result + gs + "<br/>"; 
-        }
-        System.out.println(result); 
-        return result; 
     }
 }
