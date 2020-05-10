@@ -48,14 +48,30 @@
 	}
 	</script>
 
+	<head>
+		<style>
+			/* Chrome, Safari, Edge, Opera */
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+			  -webkit-appearance: none;
+			  margin: 0;
+			}
+			
+			/* Firefox */
+			input[type=number] {
+			  -moz-appearance: textfield;
+			}
+		</style>
+	</head>
+
 	<body>
 		<h2>BIS2211 - Team B - Tank App</h2>
 		<% out.println("Datum: "+java.util.Calendar.getInstance().getTime()); %> <br/>
 		
 		<form action = "index.jsp" method = "GET">
 		
-			<input type="number" step="0.0000000001" id="latField" name="latField" value="<% out.print(request.getParameter("latField")); %>">
-			<input type="number" step="0.0000000001" id="lonField" name="lonField" value="<% out.print(request.getParameter("lonField")); %>">
+			<input type="number" step= "any" id="latField" name="latField" value="<% out.print(request.getParameter("latField")); %>">
+			<input type="number" step = "any" id="lonField" name="lonField" value="<% out.print(request.getParameter("lonField")); %>">
 			<button type="button" onclick="showPosition();">Meine Position bestimmen</button> 
 		<!-- 	<input type = "submit" value = "Submit" />  -->
 			<button type="submit" value = "Submit" >submit</button>
