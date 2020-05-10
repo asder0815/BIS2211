@@ -3,6 +3,7 @@
 <%@page import="com.google.*"%>
 
 <html>
+<link rel="stylesheet" type="text/css" href="style.css">
 
 	<script type="text/javascript">
 	function showPosition(){
@@ -56,7 +57,8 @@
 			<input type="number" step="0.0000000001" id="latField" name="latField" value="<% out.print(request.getParameter("latField")); %>">
 			<input type="number" step="0.0000000001" id="lonField" name="lonField" value="<% out.print(request.getParameter("lonField")); %>">
 			<button type="button" onclick="showPosition();">Meine Position bestimmen</button> 
-			<input type = "submit" value = "Submit" />
+		<!-- 	<input type = "submit" value = "Submit" />  -->
+			<button type="submit" value = "Submit" >submit</button>
 			
 		</form>
 		<br/>
