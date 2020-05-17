@@ -1,7 +1,26 @@
-body {
-  background-color: lightblue;
+@charset "UTF-8";
+
+.banner{
+	position: relative;
+	background: url(bild.jpg);
+	min-height: 100vh;
+	background-size: cover;
+	background-position: center;
+	padding: 250px 0 200px;
+	}
+	
+td {
+  width: 200px;
+  text-align: left;
 }
 
-button {
-	background-color: lightgreen;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
 }
+			
+/* Firefox */
+input[type=number] {
+-moz-appearance: textfield;
