@@ -20,11 +20,11 @@ public class WebController
 			output += ("<tr> <td>" + gs.getName() + "</td>"); 
 			output += ("<td>" + gs.getStreet() + "</td>");
 			output += ("<td>" + gs.getOpenStatus() + "</td> ");
-			output += ("<td> <button radiobutton type=\"submit\" id=\"favorite_\" + gs.getId() +\"\">zu Favoriten hinzufügen</button> </td> </tr>");
+			output += ("<td> <button type=\"submit\" onclick= \" addfavorite()\"  id=\"favorite_\" + gs.getId() +\"\">zu Favoriten hinzufügen</button> </td> </tr>");
 		}		
 		System.out.println(output);
 		
-		return output; 		
+		return output;		
 	}
 	
 	private static void getGSData(float lat, float lon)

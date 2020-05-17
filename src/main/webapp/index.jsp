@@ -2,8 +2,11 @@
 <%@page import="web.WebController"%>
 <%@page import="com.google.*"%>
 
-<html>
 <link rel="stylesheet" type="text/css" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<meta charset="utf-8"/>
+
+<html>
 
 	<script type="text/javascript">
 	function showPosition(){
@@ -26,6 +29,11 @@
 	    document.getElementById("latField").value = lat;
 	    document.getElementById("lonField").value = lon;  
 	}
+
+	function submitUsername(){
+		 var username = document.getElementById("usernameField").value;  
+		 Cookies.set("cookie_user", username, {expires: 2});
+		}
 	  
 	// Define callback function for failed attempt
 	function showError(error)
@@ -48,22 +56,6 @@
 	}
 	</script>
 
-	<head>
-		<style>
-			/* Chrome, Safari, Edge, Opera */
-			input::-webkit-outer-spin-button,
-			input::-webkit-inner-spin-button {
-			  -webkit-appearance: none;
-			  margin: 0;
-			}
-			
-			/* Firefox */
-			input[type=number] {
-			  -moz-appearance: textfield;
-			}
-		</style>
-	</head>
-
 	<body>
 		<h2>BIS2211 - Team B - Tank App</h2>
 		<% out.println("Datum: "+java.util.Calendar.getInstance().getTime()); %> <br/>
@@ -72,9 +64,12 @@
 		
 			<input type="number" step= "any" id="latField" name="latField" value="<% out.print(request.getParameter("latField")); %>">
 			<input type="number" step = "any" id="lonField" name="lonField" value="<% out.print(request.getParameter("lonField")); %>">
-			<button type="button" onclick="showPosition();">Meine Position bestimmen</button> 
+			<button type="button" onclick="showPosition()">Meine Position bestimmen</button> 
 		<!-- 	<input type = "submit" value = "Submit" />  -->
-			<button type="submit" value = "Submit" >submit</button>
+		<label>Benutzername: </label>
+			<input type="text" id= "usernameField" name = "usernameField">
+			<button type="submit" onclick="submitUsername()"value = "Submit" >submit</button>
+			
 			
 		</form>
 		<br/>
