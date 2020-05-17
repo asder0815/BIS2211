@@ -47,16 +47,16 @@
 	<section class="banner"></section>
 	
 		<form action = "index.jsp" method = "GET">		
- 			<input type="text" id="latField" name="latField" value="<% out.print(request.getParameter("latField")); %>" class="form-control" placeholder="L‰ngengrad" aria-label="Recipient's username" aria-describedby="basic-addon2">
+ 			<input type="text" id="latField" name="latField" value="<% out.print(request.getParameter("latField")); %>" class="form-control" placeholder="L√§ngengrad" aria-label="Recipient's username" aria-describedby="basic-addon2">
  			<input type="text" id="lonField" name="lonField" value="<% out.print(request.getParameter("lonField")); %>" class="form-control" placeholder="Breitengrad" aria-label="Recipient's username" aria-describedby="basic-addon2">			
 		<br>	
 			<button class="btn btn-warning" type="button" onclick="showPosition()">Position bestimmen</button> 
-			<input class="btn btn-warning" type="submit" value = "Best‰tigen" ></input>				
+			<input class="btn btn-warning" type="submit" value = "Best√§tigen" ></input>				
 				</form> <br>
 		
 		<table id="gsTable"> 
 			<tbody> 
-			<tr> <th>Name:</th> <th>Straﬂe:</th> <th>Geˆffnet:</th><th>Diesel:</th><th>E5:</th><th>E10:</th></tr>
+			<tr> <th>Name:</th> <th>Stra√üe:</th> <th>Ge√∂ffnet:</th><th>Diesel:</th><th>E5:</th><th>E10:</th></tr>
 		<% 
 			float lat = 0f;
 	    	float lon = 0f;
@@ -131,4 +131,44 @@
 	}
 	</script>
 	
+	<body>
+		<h2>BIS2211 - Team B - Tank App</h2>
+		<% out.println("Datum: "+java.util.Calendar.getInstance().getTime()); %> <br/>
+		
+		<form action = "index.jsp" method = "GET">
+		
+			<input type="number" step= "any" id="latField" name="latField" value="<% out.print(request.getParameter("latField")); %>">
+			<input type="number" step = "any" id="lonField" name="lonField" value="<% out.print(request.getParameter("lonField")); %>">
+			<button type="button" onclick="showPosition()">Meine Position bestimmen</button> 
+		<!-- 	<input type = "submit" value = "Submit" />  -->
+		<label>Benutzername: </label>
+			<input type="text" id= "usernameField" name = "usernameField">
+			<button type="submit" onclick="submitUsername()"value = "Submit" >submit</button>
+			
+			
+		</form>
+		<br/>
+		
+		<table id="gsTable"> 
+		<tbody> 
+		<tr> <th>Name:</th> <th>Preis:</th> <th>Stra√üe:</th> <th>Ge√∂ffnet:</th> </tr>
+		<% 
+			float lat = 0f;
+	    	float lon = 0f;
+	    	
+	    	lat = WebController.convertReqestParameter(request.getParameter("latField"));
+	    	lon = WebController.convertReqestParameter(request.getParameter("lonField"));
+	    	
+			if(lat == 0 && lon == 0)
+			{
+				lat = 48.878708f;
+				lon = 8.717344f;
+			}
+			
+			out.println(WebController.printGSTable(lat, lon));
+		%> 
+		</tbody> 
+		</table> <br/>
+		
+	</body>
 </html>

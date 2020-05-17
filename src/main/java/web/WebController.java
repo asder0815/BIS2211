@@ -17,7 +17,8 @@ public class WebController
 		getGSData(lat, lon);  
 		for(GasStation gs : gsList)
 		{
-			output += ("<tr> <td>" + gs.getName() + "</td>"); 
+			output += ("<tr> <td>" + gs.getName() + "</td>");
+			output += ("<td>" + gs.getDiesel() + "&euro;"+ "</td>");
 			output += ("<td>" + gs.getStreet() + "</td>");
 			output += ("<td>" + gs.getOpenStatus() + "</td> ");
 			output += ("<td>" + gs.getDieselPrice() + "</td> ");
