@@ -1,9 +1,23 @@
-body {
-  background-color: lightblue;
+@charset "UTF-8";
+
+html {
+	background-color: lightgreen;
 }
 
-button {
-	background-color: lightgreen;
+menubar{
+	margin-left: 260px;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 20px;
+}
+
+td {
+  width: 150px;
+  text-align: center;
+  border: 1px solid black;
+  padding: 5px;
 }
 
 /* Chrome, Safari, Edge, Opera */

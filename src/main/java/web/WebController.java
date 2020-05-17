@@ -20,7 +20,10 @@ public class WebController
 			output += ("<tr> <td>" + gs.getName() + "</td>"); 
 			output += ("<td>" + gs.getStreet() + "</td>");
 			output += ("<td>" + gs.getOpenStatus() + "</td> ");
-			output += ("<td> <button type=\"submit\" onclick= \" addfavorite()\"  id=\"favorite_\" + gs.getId() +\"\">zu Favoriten hinzufügen</button> </td> </tr>");
+			output += ("<td>" + gs.getDieselPrice() + "a </td> ");
+			output += ("<td>" + gs.getE5Price() + "€ </td> ");
+			output += ("<td>" + gs.getE10Price() + "€ </td> ");
+			output += ("<td><button class=\"btn btn-warning\" title=\"zu Favoriten hinzufügen\" onclick= \" addfavorite()\"  id=\"favorite_\" + gs.getId() +\"> <i class=\"material-icons\">grade</i></button> </td> </tr>");
 		}		
 		System.out.println(output);
 		

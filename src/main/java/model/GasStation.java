@@ -22,6 +22,20 @@ public class GasStation
 		else	return "geschlossen";
 	}
 	
+	public String getDieselPrice(){
+		if(this.diesel == 0.0f) return "-----";
+		else return String.valueOf(this.diesel);
+	}
+	
+	public String getE5Price(){
+		if(this.e5 == 0.0f)	 return "-----";
+		else 	return String.valueOf(this.e5);
+	}
+	public String getE10Price(){
+		if(this.e10 == 0.0f)	 return "-----";
+		else 	return String.valueOf(this.e10);
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -131,6 +145,6 @@ public class GasStation
 	@Override
 	public String toString()
 	{
-		return name + " in: " + street + " " + houseNumber + " " + postCode + " " + place; 
+		return name + " in: " + street + " " + houseNumber + " " + postCode + " " + place + " " + diesel + " " + e5 + " " + e10; 
 	}
 }
