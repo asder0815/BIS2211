@@ -76,7 +76,7 @@
 		
 		<table id="gsTable"> 
 		<tbody> 
-		<tr> <th>Name:</th> <th>Straße:</th> <th>Geöffnet:</th> </tr>
+		<tr> <th>Name:</th> <th>Preis:</th> <th>Straße:</th> <th>Geöffnet:</th> </tr>
 		<% 
 			float lat = 0f;
 	    	float lon = 0f;

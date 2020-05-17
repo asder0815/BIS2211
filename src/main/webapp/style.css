@@ -3,7 +3,7 @@ body {
 }
 
 button {
-	background-color: lightgreen;
+	background-color: #ff80ff;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -16,3 +16,8 @@ margin: 0;
 /* Firefox */
 input[type=number] {
 -moz-appearance: textfield;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 50px 0;
+}
