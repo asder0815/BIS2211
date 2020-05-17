@@ -1,23 +1,17 @@
 @charset "UTF-8";
 
-html {
-	background-color: lightgreen;
-}
-
-menubar{
-	margin-left: 260px;
-}
-
-table {
-  border-collapse: separate;
-  border-spacing: 0 20px;
-}
-
+.banner{
+	position: relative;
+	background: url(bild.jpg);
+	min-height: 100vh;
+	background-size: cover;
+	background-position: center;
+	padding: 250px 0 200px;
+	}
+	
 td {
-  width: 150px;
-  text-align: center;
-  border: 1px solid black;
-  padding: 5px;
+  width: 200px;
+  text-align: left;
 }
 
 /* Chrome, Safari, Edge, Opera */

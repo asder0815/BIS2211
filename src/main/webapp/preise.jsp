@@ -16,19 +16,57 @@
 
 <html>
 <title> BIS2211 - Team B - Tank App </title>
-	<head> 
-	<link rel="stylesheet" type="text/css" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-
-	<h1> BIS2211 - Team B - Tank App</h1>
-
-		<a href=index.jsp> <button type= "button"  class="btn btn-primary">Tankstelle finden</button></a>
-		<a href=preise.jsp> <button type= "button"  class="btn btn-primary">Preise und Statistik</button></a>
-		<a href=leaderboard.jsp> <button type= "button"  class="btn btn-primary">Leaderboard</button></a> <br>
+	<head>
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!--  Google Material Icons-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+	<!--  Cookies -->
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css"></link>
+		
 
 	</head>
 
+<body>
+	<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+		<a href="index.jsp" class= "navbar-brand">Tankstelle finden</a> 
+			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+				<span class="navbar-toggler-icon"></span></button>
+		<div class="collapse navbar-collapse" id="navbarMenu">
+		<ul class="navbar-nav ">
+			<li class= "nav-item">
+				<a href="preise.jsp" class="nav-link">Statistik</a>
+			</li>
+			<li class= "nav-item">
+				<a href="preise.jsp" class="nav-link">Leaderboard</a>
+			</li>
+			<li class= "nav-item">
+				<a href="preise.jsp" class="nav-link">Test</a>
+			</li>
+		</ul> 
+		</div>
+	</nav>
+	
+<div style="background-image: url('bild.jpg');">
+hihi<br>
+hi<br>
+hi<br>
+hi<br>
+hi<br>
+hi<br>
+hi<br>
+v<br>
+hi<br>
+hi<br>
+hi<br>
+hi<br>
 
+	
+</body>
 
 
 </html>
