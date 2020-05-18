@@ -59,6 +59,6 @@ public class ApiData
     //returns a https request string with the specified latitude, longitude and radius
     public static String buildRequestString(float lat, float lon, double radius) 
     {
-        return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + Api_Key.API_KEY;
+        return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + new Api_Key().getApiKey();
     }
 }
