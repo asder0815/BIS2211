@@ -87,7 +87,7 @@
 			<% 
 				float lat = 0f;
 		    	float lon = 0f;
-		    	float rad = 10f;
+		    	float rad = 5f;
 		    	
 		    	lat = WebController.convertReqestParameter(request.getParameter("latField"));
 		    	lon = WebController.convertReqestParameter(request.getParameter("lonField"));
@@ -97,6 +97,9 @@
 				{
 					lat = 48.878708f;
 					lon = 8.717344f;
+				}
+				if(rad == 0f){
+					rad = 5f;
 				}
 				
 				out.println(WebController.printGSTable(lat, lon, rad));
