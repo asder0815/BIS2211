@@ -1,80 +1,4 @@
 
-# Created by https://www.gitignore.io/api/java,jboss,maven,java-web
-# Edit at https://www.gitignore.io/?templates=java,jboss,maven,java-web
-
-### Java ###
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-### Java-Web ###
-## ignoring target file
-target/
-
-### JBoss ###
-jboss/server/all/deploy/project.ext
-jboss/server/default/deploy/project.ext
-jboss/server/minimal/deploy/project.ext
-jboss/server/all/log/*.log
-jboss/server/all/tmp/**/*
-jboss/server/all/data/**/*
-jboss/server/all/work/**/*
-jboss/server/default/log/*.log
-jboss/server/default/tmp/**/*
-jboss/server/default/data/**/*
-jboss/server/default/work/**/*
-jboss/server/minimal/log/*.log
-jboss/server/minimal/tmp/**/*
-jboss/server/minimal/data/**/*
-jboss/server/minimal/work/**/*
-
-# deployed package files #
-
-*.DEPLOYED
-
-### Maven ###
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
-.flattened-pom.xml
-
-### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-### VisualStudioCode Patch ###
-# Ignore all local history of files
-.history
-
 ### Eclipse ###
 .metadata
 bin/
@@ -169,7 +93,32 @@ local.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# End of https://www.gitignore.io/api/java,jboss,maven,java-web
+### Java-Web ###
+## ignoring target file
+target/
+
+### Maven ###
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+.flattened-pom.xml
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
 
 # ignore the API-Key
-src/main/java/API/Api_Key.java
+src/main/java/API/api.properties
