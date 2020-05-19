@@ -4,8 +4,6 @@
 <script src="scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
-<meta charset="utf-8"/>
-
 <html>
 
 <head>

@@ -7,6 +7,8 @@
 	<title> BIS2211 - Team B - Tank App </title>
 	
 	<head>
+		<!-- jquery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
@@ -25,6 +27,8 @@
 	</head> 
 		
 	<body>
+	
+	
 		<header>
 		<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
 			<a href="index.jsp" class= "navbar-brand">Tankstelle finden</a> 
@@ -36,10 +40,10 @@
 					<a href="preise.jsp" class="nav-link">Statistik</a>
 				</li>
 				<li class= "nav-item">
-					<a href="preise.jsp" class="nav-link">Leaderboard</a>
+					<a href="leaderboard.jsp" class="nav-link">Leaderboard</a>
 				</li>
 				<li class= "nav-item">
-					<a href="preise.jsp" class="nav-link">Test</a>
+					<a href="leaderboard.jsp" class="nav-link">Test</a>
 							</li>
 						</ul>
 					</div>
@@ -49,11 +53,23 @@
 	<section class="banner"></section>
 	
 		<form action = "index.jsp" method = "GET">		
- 			<input type="text" id="latField" name="latField" value="<% out.print(request.getParameter("latField")); %>" class="form-control" placeholder="Längengrad" aria-label="Recipient's username" aria-describedby="basic-addon2">
- 			<input type="text" id="lonField" name="lonField" value="<% out.print(request.getParameter("lonField")); %>" class="form-control" placeholder="Breitengrad" aria-label="Recipient's username" aria-describedby="basic-addon2">			
-		<br>	
+ 			<input type="text" id="latField" name="latField" class="form-control" placeholder="Längengrad" >
+ 			<input type="text" id="lonField" name="lonField"  class="form-control" placeholder="Breitengrad">			
+		<div class="container">
+ 				<div class="form-group">
+ 						<label for ="radField">Im Umkreis von</label><br>
+ 						<select name="radField" id="radField" class="selectpicker" onchange="radSelect()">
+ 							<option value="5">5km</option>
+ 							<option value="10">10km</option>
+ 							<option value="15">15km</option>
+ 							<option value="20">20km</option>
+ 						</select>			
+ 					</div>
+ 			</div> 	
+ 		<br>	
 			<button class="btn btn-warning" type="button" onclick="showPosition()">Position bestimmen</button> 
-			<input class="btn btn-warning" type="submit" value = "Bestätigen" ></input>				
+			<input class="btn btn-warning" type="submit" value = "Bestätigen" ></input>		
+				
 		</form> 
 		
 		<br>
@@ -71,9 +87,11 @@
 			<% 
 				float lat = 0f;
 		    	float lon = 0f;
+		    	float rad = 10f;
 		    	
 		    	lat = WebController.convertReqestParameter(request.getParameter("latField"));
 		    	lon = WebController.convertReqestParameter(request.getParameter("lonField"));
+		    	rad = WebController.convertReqestParameter(request.getParameter("radField"));
 		    	
 				if(lat == 0 && lon == 0)
 				{
@@ -81,13 +99,19 @@
 					lon = 8.717344f;
 				}
 				
-				out.println(WebController.printGSTable(lat, lon));
+				out.println(WebController.printGSTable(lat, lon, rad));
 			%> 
 			</tbody> 
 		</table> 
 		
 		<br/>
 		
+		<script>
+	
+	</script>
+		
 	</body>
+	
+	
 	
 </html>

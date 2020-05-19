@@ -19,7 +19,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
 <html>
-<title> BIS2211 - Team B - Tank App </title>
+<title> Preise </title>
 	<head>
 	
 	<!-- Bootstrap -->
@@ -38,37 +38,26 @@
 <body>
 	<header>
 	<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
-		<a href="index.jsp" class= "navbar-brand">Tankstelle finden</a> 
-			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
-				<span class="navbar-toggler-icon"></span></button>
-		<div class="collapse navbar-collapse" id="navbarMenu">
-		<ul class="navbar-nav ">
-			<li class= "nav-item">
-				<a href="preise.jsp" class="nav-link">Statistik</a>
-			</li>
-			<li class= "nav-item">
-				<a href="preise.jsp" class="nav-link">Leaderboard</a>
-			</li>
-			<li class= "nav-item">
-				<a href="preise.jsp" class="nav-link">Test</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
+			<a href="index.jsp" class= "navbar-brand">Tankstelle finden</a> 
+				<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+					<span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarMenu">
+			<ul class="navbar-nav ">
+				<li class= "nav-item">
+					<a href="preise.jsp" class="nav-link">Statistik</a>
+				</li>
+				<li class= "nav-item">
+					<a href="leaderboard.jsp" class="nav-link">Leaderboard</a>
+				</li>
+				<li class= "nav-item">
+					<a href="leaderboard.jsp" class="nav-link">Test</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 	
 <div style="background-image: url('bild.jpg');">
-hihi<br>
-hi<br>
-hi<br>
-hi<br>
-hi<br>
-hi<br>
-hi<br>
-v<br>
-hi<br>
-hi<br>
-hi<br>
-hi<br>
+
 
 	
 </body>

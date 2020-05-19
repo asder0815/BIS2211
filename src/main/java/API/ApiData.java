@@ -16,13 +16,13 @@ import com.google.gson.reflect.TypeToken;
 
 public class ApiData
 {		
-    public static ArrayList<GasStation> getJSON(float lat, float lon) 
+    public static ArrayList<GasStation> getJSON(float lat, float lon, float rad) 
     {    	
         URL url;
         HttpURLConnection request;
         try 
         {
-            url = new URL(buildRequestString(lat, lon, 5));
+            url = new URL(buildRequestString(lat, lon, rad));
             request = (HttpURLConnection) url.openConnection();
             request.setDoOutput(true);
             request.setRequestMethod("GET");
@@ -57,7 +57,7 @@ public class ApiData
     }
 
     //returns a https request string with the specified latitude, longitude and radius
-    public static String buildRequestString(float lat, float lon, double radius) 
+    public static String buildRequestString(float lat, float lon, float radius) 
     {
         return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + Api_Key.API_KEY;
     }

@@ -11,10 +11,10 @@ public class WebController
 		return gsList;
 	}	
 
-	public static String printGSTable(float lat, float lon)
+	public static String printGSTable(float lat, float lon, float rad)
 	{
 		String output = "";
-		getGSData(lat, lon);  
+		getGSData(lat, lon, rad);  
 		for(GasStation gs : gsList)
 		{
 			output += ("<tr> <td>" + gs.getName() + "</td>");
@@ -30,23 +30,23 @@ public class WebController
 		return output;		
 	}
 	
-	private static void getGSData(float lat, float lon)
+	private static void getGSData(float lat, float lon, float rad)
 	{
-		gsList = ApiData.getJSON(lat, lon); 
+		gsList = ApiData.getJSON(lat, lon, rad); 
 		System.out.println("Successfully got Gas Station data."); 
 	}
 	
 	public static float convertReqestParameter(String s)
 	{
 		System.out.println("Converting: " + s);
-		if(s == null) return 0; 
+		if(s == null) return 0;
 		try
 		{
-			return Float.parseFloat(s); 
+			return Float.parseFloat(s);
 		}
 		catch(NumberFormatException ex)
 		{
-			return 0; 
+			return 0;
 		}
 	}
 }
