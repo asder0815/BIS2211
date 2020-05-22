@@ -13,13 +13,11 @@ public class Api_Key
 			InputStream in = getClass().getResourceAsStream("api.properties");
 			prop.load(in);
 			in.close();
-			System.out.println("Successfully got the API-Key."); 
 			return prop.getProperty("apiKey");
 		}
 		catch(Exception ex)
 		{
-			System.out.println("Could not grt the API-Key."); 
-         	return "00000000-0000-0000-0000-000000000002"; 
+         	return null; 
 		}
 	}
 }

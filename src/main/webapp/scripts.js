@@ -1,3 +1,34 @@
+function toggleFav(clicked_id)
+{
+	var id = clicked_id.substr(9); 
+	var favList = Cookies.get("cfavourites");
+	if (favList == null) 
+	{
+		Cookies.set("cfavourites", id + "/", {expires: 2});
+		location.reload(); 
+	}
+	else 
+	{
+		if(!favList.includes(id))
+		{
+			Cookies.set("cfavourites", favList + id + "/", {expires: 2});
+		}
+		else
+		{
+			var newList = favList.replace(id + "/", ""); 
+			if(newList == "")
+			{
+				Cookies.remove("cfavourites"); 
+			}
+			else
+			{
+				Cookies.set("cfavourites", newList, {expires: 2});
+			}			
+		}
+		location.reload();
+	}
+}
+
 function showPosition()
 {
 	if(navigator.geolocation)
@@ -16,11 +47,6 @@ function showMap(position)
     lon = position.coords.longitude;
     document.getElementById("latField").value = lat;
     document.getElementById("lonField").value = lon;  
-}
-
-function addFavorite()
-{
-	//TODO: save favourites in cookies
 }
 	  
 function showError(error)
@@ -44,7 +70,7 @@ function showError(error)
 
 function checkForUserNameCookie() 
 {
-	var myCookie = Cookies.get("cookie_user");
+	var myCookie = Cookies.get("username");
 	if (myCookie != null) 
 	{
 		window.location.href = "index.jsp";
@@ -58,14 +84,14 @@ function checkForUserNameCookie()
 function submitUsername()
 {
 	var username = document.getElementById("usernameField").value;  
-	Cookies.set("cookie_user", username, {expires: 2});
+	Cookies.set("username", username, {expires: 2});
 	window.location.href = "index.jsp";
 }
 
-function sortTable(n) 
+function sortTable(n, id) 
 {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-	table = document.getElementById("gsTable");
+	table = document.getElementById(id);
 	switching = true;
 	dir = "asc";
 	while (switching) 

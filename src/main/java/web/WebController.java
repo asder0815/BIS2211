@@ -6,12 +6,16 @@ import model.GasStation;
 
 public class WebController
 {	
-	private static ArrayList<GasStation> gsList = null; 
-	public static ArrayList<GasStation> getGslist() {
+	private ArrayList<GasStation> gsList = new ArrayList<GasStation>(); 
+	public ArrayList<GasStation> getGslist() {
 		return gsList;
 	}	
-
-	public static String printGSTable(float lat, float lon, float rad)
+	private ArrayList<GasStation> favouriteList = new ArrayList<GasStation>(); 
+	public ArrayList<GasStation> getFavouriteList() {
+		return gsList;
+	}
+	
+	public String printGSTable(float lat, float lon, float rad)
 	{
 		String output = "";
 		getGSData(lat, lon, rad);  
@@ -22,23 +26,52 @@ public class WebController
 			output += ("<td>" + gs.getE5Price() + "</td> ");
 			output += ("<td>" + gs.getE10Price() + "</td> ");
 			output += ("<td>" + gs.getStreet() + "</td>");
+			output += ("<td>" + gs.getDistance()  + "</td>"); 
 			output += ("<td>" + gs.getOpenStatus() + "</td> ");
-			output += ("<td><button class=\"btn btn-warning\" title=\"zu Favoriten hinzufügen\" onclick= \"addfavorite()\"  id=\"favorite_\" + gs.getId() +\"> <i class=\"material-icons\">grade</i></button> </td> </tr>");
+			output += ("<td> "
+						+ "<button class=\"btn btn-primary\" "
+						+ "id=\"favorite_" + gs.getId() + "\" "
+						+ "onclick=\"toggleFav(this.id)\"> "
+						+ "<i class=\"material-icons\"> " + checkFavButton(gs.getId()) + " </i> "
+						+ "</button> </td> </tr>");
 		}		
-		System.out.println(output);
-		
 		return output;		
 	}
 	
-	private static void getGSData(float lat, float lon, float rad)
+	public String printGSTable(String[] favs)
+	{
+		String output = "";
+		getGSData(favs);  
+		for(GasStation gs : favouriteList)
+		{
+			output += ("<tr> <td>" + gs.getName() + "</td>");
+			output += ("<td>" + gs.getDieselPrice() + "</td> ");
+			output += ("<td>" + gs.getE5Price() + "</td> ");
+			output += ("<td>" + gs.getE10Price() + "</td> ");
+			output += ("<td>" + gs.getStreet() + "</td>");
+			output += ("<td>" + gs.getOpenStatus() + "</td> ");
+			output += ("<td> "
+						+ "<button class=\"btn btn-primary\" "
+						+ "id=\"favorite_" + gs.getId() + "\" "
+						+ "onclick=\"toggleFav(this.id)\"> "
+						+ "<i class=\"material-icons\"> remove_circle </i> "
+						+ "</button> </td> </tr>");
+		}				
+		return output;		
+	}
+	
+	private void getGSData(float lat, float lon, float rad)
 	{
 		gsList = ApiData.getJSON(lat, lon, rad); 
-		System.out.println("Successfully got Gas Station data."); 
+	}
+	
+	private void getGSData(String[] favs)
+	{
+		favouriteList = ApiData.getJSON(favs); 
 	}
 	
 	public static float convertReqestParameter(String s)
 	{
-		System.out.println("Converting: " + s);
 		if(s == null) return 0;
 		try
 		{
@@ -48,5 +81,17 @@ public class WebController
 		{
 			return 0;
 		}
+	}
+	
+	private String checkFavButton(String id)
+	{
+		for(GasStation gs: favouriteList)
+		{
+			if(gs.getId().equals(id))
+			{
+				return "remove_circle"; 
+			}
+		}
+		return "add_circle"; 
 	}
 }

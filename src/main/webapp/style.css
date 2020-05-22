@@ -24,21 +24,17 @@ input[type=number]
 	-moz-appearance: textfield;
 }
 
-table 
-{
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
 td, th 
 {
-  border: 1px solid rgb(128, 128, 64);
-  text-align: left;
-  padding: 8px;
+    text-align: center; 
+    vertical-align: middle;
 }
 
-tr:nth-child(even) 
-{
-  background-color: #dddddd;
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

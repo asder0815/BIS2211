@@ -23,17 +23,19 @@ public class GasStation
 	}
 	
 	public String getDieselPrice(){
-		if(this.diesel == 0.0f) return "-----";
+		if(this.diesel == 0.0f) return "×";
 		else return String.valueOf(this.diesel) + "&euro;";
 	}
-	
 	public String getE5Price(){
-		if(this.e5 == 0.0f)	 return "-----";
+		if(this.e5 == 0.0f)	 return "x";
 		else 	return String.valueOf(this.e5) + "&euro;";
 	}
 	public String getE10Price(){
-		if(this.e10 == 0.0f)	 return "-----";
+		if(this.e10 == 0.0f)	 return "×";
 		else 	return String.valueOf(this.e10) + "&euro;";
+	}
+	public String getDistance(){
+		return this.dist + " km"; 
 	}
 	
 	public String getId() {
