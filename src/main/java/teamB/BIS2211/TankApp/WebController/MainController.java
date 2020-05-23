@@ -16,9 +16,9 @@ public class MainController
   @GetMapping("/main")
   public String main(
     @RequestParam(name="name", required=false, defaultValue="lizer") final String name, 
-    @RequestParam(name="lat", required=false, defaultValue="50.110924") final String lat,
-    @RequestParam(name="lon", required=false, defaultValue="8.682127") final String lon,
-    @RequestParam(name="rad", required=false, defaultValue="10") final String rad,
+    @RequestParam(name="lat", required=false, defaultValue="") final String lat,
+    @RequestParam(name="lon", required=false, defaultValue="") final String lon,
+    @RequestParam(name="rad", required=false, defaultValue="") final String rad,
     @CookieValue(value = "cfavourites", defaultValue = "") String favs,
     final Model model) 
   {
