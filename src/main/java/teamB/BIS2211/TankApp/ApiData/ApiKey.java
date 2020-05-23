@@ -1,9 +1,9 @@
-package API;
+package teamB.BIS2211.TankApp.ApiData;
 
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Api_Key 
+public class ApiKey 
 {	
 	public String getApiKey()
 	{

@@ -1,24 +1,16 @@
-package API;
-
-import model.GasStation;
+package teamB.BIS2211.TankApp.ApiData;
 
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.lang.reflect.Type;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import java.net.*;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import java.util.ArrayList;
+import teamB.BIS2211.TankApp.Model.GasStation;
 
-public class ApiData
-{		
-    public static ArrayList<GasStation> getJSON(float lat, float lon, float rad) 
-    {    	
+public class ApiData 
+{
+    public static ArrayList<GasStation> getJSON(final float lat, final float lon, final float rad) {
         URL url;
         HttpURLConnection request;
         try 
@@ -28,29 +20,25 @@ public class ApiData
             request.setDoOutput(true);
             request.setRequestMethod("GET");
             request.connect();
-            
-            JsonElement element = JsonParser.parseReader(new InputStreamReader(request.getInputStream()));
-            JsonObject obj = element.getAsJsonObject();
-            if(obj.get("status").getAsString().equals("ok"))
-            {	  
-	            String jsonString = obj.toString().substring(obj.toString().indexOf("["), (obj.toString().indexOf("]")+1)); 
-	            Type listType = new TypeToken<ArrayList<GasStation>>(){}.getType();
-	            ArrayList<GasStation> gsList = new Gson().fromJson(jsonString, listType);
-	
-	            return gsList;  
-            }            
+            final JsonElement element = JsonParser.parseReader(new InputStreamReader(request.getInputStream()));
+            final JsonObject obj = element.getAsJsonObject();
+            if (obj.get("status").getAsString().equals("ok")) {
+                final String jsonString = obj.toString().substring(obj.toString().indexOf("["),(obj.toString().indexOf("]") + 1));
+                final Type listType = new TypeToken<ArrayList<GasStation>>(){}.getType();
+                final ArrayList<GasStation> gsList = new Gson().fromJson(jsonString, listType);
+                return gsList;
+            }
         } 
-        catch (Exception e) 
+        catch (final Exception e) 
         {
-        	System.out.println("There was an error parsing the JSON file.");
+            System.out.println("There was an error parsing the JSON file.");
         }
         return new ArrayList<GasStation>();
     }
-    
+
     public static ArrayList<GasStation> getJSON(String[] favList) 
     {   
     	ArrayList<GasStation> gsList = new ArrayList<GasStation>(); 
-    	System.out.println(Arrays.toString(favList)); 
     	for(String s: favList)
     	{
 	        URL url;
@@ -81,13 +69,13 @@ public class ApiData
         return gsList; 
     }
 
-    public static String buildRequestString(float lat, float lon, float radius) 
+    private static String buildRequestString(final float lat, final float lon, final float radius) 
     {
-        return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + new Api_Key().getApiKey();
+        return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + new ApiKey().getApiKey();
     }
-    
+
     public static String buildRequestString(String id)
     {
-    	return "https://creativecommons.tankerkoenig.de/json/detail.php?id=" + id + "&apikey=" + new Api_Key().getApiKey(); 
+    	return "https://creativecommons.tankerkoenig.de/json/detail.php?id=" + id + "&apikey=" + new ApiKey().getApiKey(); 
     }
 }
