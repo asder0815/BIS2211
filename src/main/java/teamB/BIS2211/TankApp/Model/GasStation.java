@@ -1,4 +1,4 @@
-package model;
+package teamB.BIS2211.TankApp.Model;
 
 public class GasStation 
 {
@@ -18,21 +18,21 @@ public class GasStation
 	private String postCode; 
 	
 	public String getOpenStatus() {
-		if (this.isOpen == true)  return "geöffnet"; 
+		if (this.isOpen == true)  return "geÃ¶ffnet"; 
 		else	return "geschlossen";
 	}
 	
 	public String getDieselPrice(){
-		if(this.diesel == 0.0f) return "×";
-		else return String.valueOf(this.diesel) + "&euro;";
+		if(this.diesel == 0.0f) return "X";
+		else return String.valueOf(this.diesel) + "â‚¬";
 	}
 	public String getE5Price(){
-		if(this.e5 == 0.0f)	 return "x";
-		else 	return String.valueOf(this.e5) + "&euro;";
+		if(this.e5 == 0.0f)	 return "X";
+		else 	return String.valueOf(this.e5) + "";
 	}
 	public String getE10Price(){
-		if(this.e10 == 0.0f)	 return "×";
-		else 	return String.valueOf(this.e10) + "&euro;";
+		if(this.e10 == 0.0f)	 return "X";
+		else 	return String.valueOf(this.e10) + "â‚¬";
 	}
 	public String getDistance(){
 		return this.dist + " km"; 
