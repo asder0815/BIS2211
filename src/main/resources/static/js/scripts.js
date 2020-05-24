@@ -67,3 +67,9 @@ function showError(error)
 	        break;
 	}
 }
+
+function submitUsername(name) 
+{
+	Cookies.set("username", name, {expires: 2});
+	location.reload(); 
+}
