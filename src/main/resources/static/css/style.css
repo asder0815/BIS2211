@@ -2,10 +2,14 @@
 
 body 
 {
-    background-color: rgb(42, 42, 42);
     padding-top: 30px;
     padding-bottom: 30px;
     color: whitesmoke;
+    background: url("../imgs/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
 
 .unselectable {
@@ -31,4 +35,21 @@ td, th
 	background-size: cover;
 	background-position: center;
 	padding: 250px 0 200px;
+}
+
+.card-header .fa 
+{
+    transition: .3s transform ease-in-out;
+}
+
+.card-header .collapsed .fa 
+{
+    transform: rotate(90deg);
+}
+
+.card 
+{
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
 }

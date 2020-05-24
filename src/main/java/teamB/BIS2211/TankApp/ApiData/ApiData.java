@@ -31,7 +31,7 @@ public class ApiData
         } 
         catch (final Exception e) 
         {
-            System.out.println("There was an error parsing the JSON file.");
+            System.out.println("There was an error parsing the JSON data");
         }
         return new ArrayList<GasStation>();
     }
@@ -63,7 +63,8 @@ public class ApiData
 	        } 
 	        catch (Exception e) 
 	        {
-	        	System.out.println("There was an error parsing the JSON file.");
+                System.out.println("There was an error parsing the JSON file.");
+                System.out.println("Creating test data...");
 	        }
     	}
         return gsList; 
@@ -74,8 +75,20 @@ public class ApiData
         return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + new ApiKey().getApiKey();
     }
 
-    public static String buildRequestString(String id)
+    private static String buildRequestString(String id)
     {
     	return "https://creativecommons.tankerkoenig.de/json/detail.php?id=" + id + "&apikey=" + new ApiKey().getApiKey(); 
     }
+
+    public static ArrayList<GasStation> createTestData()
+    {
+        ArrayList<GasStation> testList = new ArrayList<>(); 
+        testList.add(new GasStation("1","2","3","4","5", 0, 0, 0, 1, 2, 3, false, null, null));
+        testList.add(new GasStation("1","2","3","4","5", 0, 0, 0, 1, 2, 3, false, null, null));
+        testList.add(new GasStation("1","2","3","4","5", 0, 0, 0, 1, 2, 3, false, null, null));
+        testList.add(new GasStation("1","2","3","4","5", 0, 0, 0, 1, 2, 3, false, null, null));
+        testList.add(new GasStation("1","2","3","4","5", 0, 0, 0, 1, 2, 3, false, null, null));
+        return testList; 
+    }
+
 }

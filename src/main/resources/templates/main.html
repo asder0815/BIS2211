@@ -38,96 +38,109 @@
 
     <p th:text="'Henlo, ' + ${name} + '.'">
     
-    <div class="card text-white bg-dark border-primary text-center mb-3">
+    <div class="card text-white bg-dark border-primary text-center mb-3 w-75">
         <div class="card-header"> Meine Position: </div>
         <form th:action="@{/main}">		
-            <div class="form-group">
-                <input id="latField" type="text" th:name="lat" placeholder="Längengrad" >
-                <input id="lonField" type="text" th:name="lon" placeholder="Breitengrad">			
-                <div class="container">
-                    <label for ="radField">Im Umkreis von</label><br>
-                    <select th:name="rad" class="selectpicker" onchange="radSelect()">
-                        <option value="5">5km</option>
-                        <option value="10">10km</option>
-                        <option value="15">15km</option>
-                        <option value="20">20km</option>
-                    </select>			
-                </div>
+            <input id="latField" type="text" th:name="lat" placeholder="Längengrad" >
+            <input id="lonField" type="text" th:name="lon" placeholder="Breitengrad">			
+            <div class="container">
+                <label for ="radField"> Im Umkreis von: </label>
+                <select th:name="rad" class="selectpicker" onchange="radSelect()">
+                    <option value="5"> 5km </option>
+                    <option value="10"> 10km </option>
+                    <option value="15"> 15km </option>
+                    <option value="20"> 20km </option>
+                </select>			
             </div>
             <button class="btn btn-warning" type="button" onclick="showPosition()">Position bestimmen</button> 
             <input class="btn btn-warning" type="submit" value = "Bestätigen" ></input>
+            <br>
         </form>
     </div>
 
-    <div class="card text-white bg-dark border-primary text-center mb-3" th:unless="${favList.isEmpty()}">
-        <div class="card-header"> Favouriten: </div>
-        <table class="card-table table table-dark table-hover sortable unselectable" id="favTable">
-            <thead>
-                <tr>
-                    <th class="align-middle sorttable_nosort"> Name </th>
-                    <th class="align-middle"> Diesel </th>
-                    <th class="align-middle"> E5 </th>
-                    <th class="align-middle"> E10 </th>
-                    <th class="align-middle sorttable_nosort"> Adresse </th>
-                    <th class="align-middle"> Geöffnet </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:if="${favList.empty}">
-                    <td colspan="2"> Keine Favourtien vorhanden. </td>
-                </tr>
-                <tr th:each="fav : ${favList}">
-                    <td class="align-middle"><span th:text="${fav.getName()}"> Name </span></td>
-                    <td class="align-middle"><span th:text="${fav.getDieselPrice()}"> Diesel Preis </span></td>
-                    <td class="align-middle"><span th:text="${fav.getE5Price()}"> E5 Preis </span></td>
-                    <td class="align-middle"><span th:text="${fav.getE10Price()}"> E10 Preis </span></td>
-                    <td class="align-middle"><span th:text="${fav.getStreet()}"> Adresse </span></td>
-                    <td class="align-middle"><span th:text="${fav.getOpenStatus()}"> Geöffnet </span></td>
-                    <td class="align-middle">
-                        <button th:id="'favourite' + ${fav.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
-                            <i class="material-icons align-middle"> remove_circle </i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="card text-white bg-dark border-primary text-center mb-3 w-75" th:unless="${favList.isEmpty()}">
+        <h5 class="card-header">
+            <a data-toggle="collapse" href="#favListCollapse" aria-expanded="true" aria-controls="favListCollapse" id="favListHeading" class="d-block">
+                Favouriten:
+                <i class="material-icons align-middle fa"> arrow_drop_down </i>
+            </a>
+        </h5>
+        <div id="favListCollapse" class="collapse show overflow-auto" aria-labelledby="heading-example">
+            <table class="card-body card-table table table-dark table-hover sortable unselectable" id="favTable">
+                <thead>
+                    <tr>
+                        <th class="align-middle sorttable_nosort"> Name </th>
+                        <th class="align-middle"> Diesel </th>
+                        <th class="align-middle"> E5 </th>
+                        <th class="align-middle"> E10 </th>
+                        <th class="align-middle sorttable_nosort"> Adresse </th>
+                        <th class="align-middle"> Geöffnet </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${favList.empty}">
+                        <td colspan="2"> Keine Favourtien vorhanden. </td>
+                    </tr>
+                    <tr th:each="fav : ${favList}">
+                        <td class="align-middle"><span th:text="${fav.getName()}"> Name </span></td>
+                        <td class="align-middle"><span th:text="${fav.getDieselPrice()}"> Diesel Preis </span></td>
+                        <td class="align-middle"><span th:text="${fav.getE5Price()}"> E5 Preis </span></td>
+                        <td class="align-middle"><span th:text="${fav.getE10Price()}"> E10 Preis </span></td>
+                        <td class="align-middle"><span th:text="${fav.getStreet()}"> Adresse </span></td>
+                        <td class="align-middle"><span th:text="${fav.getOpenStatus()}"> Geöffnet </span></td>
+                        <td class="align-middle">
+                            <button th:id="'favourite' + ${fav.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
+                                <i class="material-icons align-middle"> remove_circle </i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="card text-white bg-dark border-primary text-center mb-3" th:unless="${favList.isEmpty()}">
-        <div class="card-header"> In der Nähe: </div>
-        <table class="table table-dark table-hover sortable unselectable" id="gsTable">
-            <thead>
-                <tr>
-                    <th class="align-middle sorttable_nosort"> Name </th>
-                    <th class="align-middle"> Diesel </th>
-                    <th class="align-middle"> E5 </th>
-                    <th class="align-middle"> E10 </th>
-                    <th class="align-middle sorttable_nosort"> Adresse </th>
-                    <th class="align-middle"> Entfernung </th>
-                    <th class="align-middle"> Geöffnet </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:if="${gsList.empty}">
-                    <td colspan="2"> Keine Tankstellen in der Nähe! </td>
-                </tr>
-                <tr th:each="gs : ${gsList}">
-                    <td class="align-middle"><span th:text="${gs.getName()}"> Name </span></td>
-                    <td class="align-middle"><span th:text="${gs.getDieselPrice()}"> Diesel Preis </span></td>
-                    <td class="align-middle"><span th:text="${gs.getE5Price()}"> E5 Preis </span></td>
-                    <td class="align-middle"><span th:text="${gs.getE10Price()}"> E10 Preis </span></td>
-                    <td class="align-middle"><span th:text="${gs.getStreet()}"> Adresse </span></td>
-                    <td class="align-middle"><span th:text="${gs.getDistance()}"> Entfernung </span></td>
-                    <td class="align-middle"><span th:text="${gs.getOpenStatus()}"> Geöffnet </span></td>
-                    <td class="align-middle">
-                        <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
-                            <i class="material-icons align-middle" th:unless="${favString.contains(gs.getId())}"> add_circle </i>
-                            <i class="material-icons align-middle" th:if="${favString.contains(gs.getId())}"> remove_circle </i>
-                        </button>   
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="card text-white bg-dark border-primary text-center mb-3 w-75" th:unless="${gsList.isEmpty()}">
+        <h5 class="card-header">
+            <a data-toggle="collapse" href="#gsListCollapse" aria-expanded="true" aria-controls="gsListCollapse" id="gsListHeading" class="d-block">
+                Favouriten:
+                <i class="material-icons align-middle fa"> arrow_drop_down </i>
+            </a>
+        </h5>
+        <div id="gsListCollapse" class="collapse show overflow-auto" aria-labelledby="heading-example">
+            <table class="table table-dark table-hover sortable unselectable" id="gsTable">
+                <thead>
+                    <tr>
+                        <th class="align-middle sorttable_nosort"> Name </th>
+                        <th class="align-middle"> Diesel </th>
+                        <th class="align-middle"> E5 </th>
+                        <th class="align-middle"> E10 </th>
+                        <th class="align-middle sorttable_nosort"> Adresse </th>
+                        <th class="align-middle"> Entfernung </th>
+                        <th class="align-middle"> Geöffnet </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${gsList.empty}">
+                        <td colspan="2"> Keine Tankstellen in der Nähe! </td>
+                    </tr>
+                    <tr th:each="gs : ${gsList}">
+                        <td class="align-middle"><span th:text="${gs.getName()}"> Name </span></td>
+                        <td class="align-middle"><span th:text="${gs.getDieselPrice()}"> Diesel Preis </span></td>
+                        <td class="align-middle"><span th:text="${gs.getE5Price()}"> E5 Preis </span></td>
+                        <td class="align-middle"><span th:text="${gs.getE10Price()}"> E10 Preis </span></td>
+                        <td class="align-middle"><span th:text="${gs.getStreet()}"> Adresse </span></td>
+                        <td class="align-middle"><span th:text="${gs.getDistance()}"> Entfernung </span></td>
+                        <td class="align-middle"><span th:text="${gs.getOpenStatus()}"> Geöffnet </span></td>
+                        <td class="align-middle">
+                            <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
+                                <i class="material-icons align-middle" th:unless="${favString.contains(gs.getId())}"> add_circle </i>
+                                <i class="material-icons align-middle" th:if="${favString.contains(gs.getId())}"> remove_circle </i>
+                            </button>   
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </body>
