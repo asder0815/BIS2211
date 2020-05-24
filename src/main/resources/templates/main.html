@@ -25,7 +25,9 @@
 
     <header>
         <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
-            <a href="main" class= "navbar-brand">Tankstelle finden</a> 
+            <a href="main" class= "navbar-brand">Tankstelle finden<span class="material-icons">
+                local_gas_station</span>
+            </a> 
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarMenu">
                 <ul class="navbar-nav ">
@@ -37,25 +39,37 @@
     </header>
 
     <p th:text="'Henlo, ' + ${name} + '.'">
+
     
     <div class="card text-white bg-dark border-primary text-center mb-3 w-75">
-        <div class="card-header"> Meine Position: </div>
-        <form th:action="@{/main}">		
-            <input id="latField" type="text" th:name="lat" placeholder="Längengrad" >
-            <input id="lonField" type="text" th:name="lon" placeholder="Breitengrad">			
-            <div class="container">
+
+        <div class="container">
+            <h2>Meine Position:</h2>
+            <form class="form-horizontal" th:action="@{/main}">
+              
+                <input class="col-sm-2" id="latField" type="text" th:name="lat" placeholder="Längengrad" >
+                <input class="col-sm-2" id="lonField" type="text" th:name="lon" placeholder="Breitengrad">
+
+              <div class="container">
                 <label for ="radField"> Im Umkreis von: </label>
-                <select th:name="rad" class="selectpicker" onchange="radSelect()">
+                <select th:name="rad" class="selectpicker">
                     <option value="5"> 5km </option>
                     <option value="10"> 10km </option>
                     <option value="15"> 15km </option>
                     <option value="20"> 20km </option>
                 </select>			
-            </div>
-            <button class="btn btn-warning" type="button" onclick="showPosition()">Position bestimmen</button> 
-            <input class="btn btn-warning" type="submit" value = "Bestätigen" ></input>
-            <br>
-        </form>
+             </div>
+
+              <div class="form-group">        
+                <div class="col-sm-offset-2 col-sm-12">
+                  <button class="btn btn-warning" type="button" onclick="showPosition()">Position bestimmen</button> 
+                  <input class="btn btn-warning" type="submit" value = "Bestätigen" ></input> 
+                </div>      
+              </div>
+              
+              
+            </form>
+          </div>
     </div>
 
     <div class="card text-white bg-dark border-primary text-center mb-3 w-75" th:unless="${favList.isEmpty()}">
@@ -89,7 +103,7 @@
                         <td class="align-middle"><span th:text="${fav.getStreet()}"> Adresse </span></td>
                         <td class="align-middle"><span th:text="${fav.getOpenStatus()}"> Geöffnet </span></td>
                         <td class="align-middle">
-                            <button th:id="'favourite' + ${fav.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
+                            <button th:id="'favourite' + ${fav.getId()}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Favorit hinzufügen/entfernen" onclick="toggleFav(this.id)">
                                 <i class="material-icons align-middle"> remove_circle </i>
                             </button>
                         </td>
@@ -132,7 +146,7 @@
                         <td class="align-middle"><span th:text="${gs.getDistance()}"> Entfernung </span></td>
                         <td class="align-middle"><span th:text="${gs.getOpenStatus()}"> Geöffnet </span></td>
                         <td class="align-middle">
-                            <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
+                            <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Favorit hinzufügen/entfernen" onclick="toggleFav(this.id)">
                                 <i class="material-icons align-middle" th:unless="${favString.contains(gs.getId())}"> add_circle </i>
                                 <i class="material-icons align-middle" th:if="${favString.contains(gs.getId())}"> remove_circle </i>
                             </button>   
