@@ -28,7 +28,7 @@ public class GasStation
 	}
 	public String getE5Price(){
 		if(this.e5 == 0.0f)	 return "X";
-		else 	return String.valueOf(this.e5) + "";
+		else 	return String.valueOf(this.e5) + "€";
 	}
 	public String getE10Price(){
 		if(this.e10 == 0.0f)	 return "X";
