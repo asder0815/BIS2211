@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class ApiKey 
 {	
-	public String getApiKey()
+	public String getApiKey(String keyString)
 	{
 		try 
 		{
@@ -13,7 +13,7 @@ public class ApiKey
 			InputStream in = getClass().getResourceAsStream("api.properties");
 			prop.load(in);
 			in.close();
-			return prop.getProperty("apiKey");
+			return prop.getProperty(keyString);
 		}
 		catch(Exception ex)
 		{

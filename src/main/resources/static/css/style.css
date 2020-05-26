@@ -4,12 +4,17 @@ body
 {
     padding-top: 30px;
     padding-bottom: 30px;
-    color: whitesmoke;
     background: url("../imgs/background.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+}
+
+#map{
+    margin-right: 4%;
+    width: 90%;
+    height: 800px;
 }
 
 .unselectable {

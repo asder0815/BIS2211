@@ -72,12 +72,12 @@ public class ApiData
 
     private static String buildRequestString(final float lat, final float lon, final float radius) 
     {
-        return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + new ApiKey().getApiKey();
+        return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + new ApiKey().getApiKey("apiKey");
     }
 
     private static String buildRequestString(String id)
     {
-    	return "https://creativecommons.tankerkoenig.de/json/detail.php?id=" + id + "&apikey=" + new ApiKey().getApiKey(); 
+    	return "https://creativecommons.tankerkoenig.de/json/detail.php?id=" + id + "&apikey=" + new ApiKey().getApiKey("apiKey"); 
     }
 
     public static ArrayList<GasStation> createTestData()
@@ -89,6 +89,12 @@ public class ApiData
         testList.add(new GasStation("1","2","3","4","5", 0, 0, 0, 1, 2, 3, false, null, null));
         testList.add(new GasStation("1","2","3","4","5", 0, 0, 0, 1, 2, 3, false, null, null));
         return testList; 
+    }
+
+    public static String getApiStringGoogle()
+    {
+        var string = "https://maps.googleapis.com/maps/api/js?key=" + new ApiKey().getApiKey("apiKeyG") + "&callback=initMap";
+        return string;
     }
 
 }

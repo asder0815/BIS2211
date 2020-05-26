@@ -57,6 +57,7 @@
                     <option value="10"> 10km </option>
                     <option value="15"> 15km </option>
                     <option value="20"> 20km </option>
+                    <option value="20"> 25km </option>
                 </select>			
              </div>
 
@@ -104,7 +105,7 @@
                         <td class="align-middle"><span th:text="${fav.getOpenStatus()}"> Geöffnet </span></td>
                         <td class="align-middle">
                             <button th:id="'favourite' + ${fav.getId()}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Favorit hinzufügen/entfernen" onclick="toggleFav(this.id)">
-                                <i class="material-icons align-middle"> remove_circle </i>
+                                <i data-placement="right" title="von Favoriten entfernen" class="material-icons align-middle"> remove_circle </i>
                             </button>
                         </td>
                     </tr>
@@ -114,7 +115,7 @@
     </div>
 
     <div class="card text-white bg-dark border-primary text-center mb-3 w-75" th:unless="${gsList.isEmpty()}">
-        <h5 class="card-header">
+        <h5 class="card-header">           
             <a data-toggle="collapse" href="#gsListCollapse" aria-expanded="true" aria-controls="gsListCollapse" id="gsListHeading" class="d-block">
                 Tankstellen:
                 <i class="material-icons align-middle fa"> arrow_drop_down </i>
@@ -146,9 +147,9 @@
                         <td class="align-middle"><span th:text="${gs.getDistance()}"> Entfernung </span></td>
                         <td class="align-middle"><span th:text="${gs.getOpenStatus()}"> Geöffnet </span></td>
                         <td class="align-middle">
-                            <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Favorit hinzufügen/entfernen" onclick="toggleFav(this.id)">
-                                <i class="material-icons align-middle" th:unless="${favString.contains(gs.getId())}"> add_circle </i>
-                                <i class="material-icons align-middle" th:if="${favString.contains(gs.getId())}"> remove_circle </i>
+                            <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
+                                <i data-toggle="tooltip" data-placement="right" title="zu Favoriten hinzufügen" class="material-icons align-middle" th:unless="${favString.contains(gs.getId())}"> add_circle </i>
+                                <i data-toggle="tooltip" data-placement="right" title="von Favoriten entfernen" class="material-icons align-middle" th:if="${favString.contains(gs.getId())}"> remove_circle </i>
                             </button>   
                         </td>
                     </tr>
