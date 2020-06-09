@@ -58,3 +58,9 @@ td, th
     float: none; /* Added */
     margin-bottom: 10px; /* Added */
 }
+
+#inputCard
+{
+    padding-left: 50px;
+    padding-right: 50px;
+}
