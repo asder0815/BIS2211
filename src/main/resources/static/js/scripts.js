@@ -94,7 +94,11 @@ function addLD(name, gsID, amount, type, price)
 		fetch("http://localhost:8080/leaderboardData", requestOptions)
 		.then(response => response.text())
 		.then(result => console.log(result))
-		.catch(error => console.log('error', error));
+		.catch(error => console.log('error', error));	
+
+		setTimeout(function(){
+			location.reload();
+		}, 500); 
 	}
 }
 

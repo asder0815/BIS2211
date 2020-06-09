@@ -1,7 +1,7 @@
 package teamB.BIS2211.TankApp.WebController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +24,12 @@ public class MainController
     final Model model) 
   {
     model.addAttribute("name", name);
-    //final ArrayList<GasStation> gsList = ApiData.getJSON(convertReqestparameter(lat), convertReqestparameter(lon), convertReqestparameter(rad));
-    final ArrayList<GasStation> gsList = ApiData.createTestData(); //for testing purposes to not consume API data
+    final ArrayList<GasStation> gsList = ApiData.getJSON(convertReqestparameter(lat), convertReqestparameter(lon), convertReqestparameter(rad));
+    //final ArrayList<GasStation> gsList = ApiData.createTestData(); //for testing purposes to not consume API data
     model.addAttribute("gsList", gsList);
     final String[] favourites = splitFavString(favs); 
-    //final ArrayList<GasStation> favList = ApiData.getJSON(favourites);
-    final ArrayList<GasStation> favList = ApiData.createTestData(); //for testing purposes to not consume API data
+    final ArrayList<GasStation> favList = ApiData.getJSON(favourites);
+    //final ArrayList<GasStation> favList = ApiData.createTestData(); //for testing purposes to not consume API data
     model.addAttribute("favList", favList);
     model.addAttribute("favString", favs);
 		return "main";

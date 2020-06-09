@@ -3,10 +3,10 @@ package teamB.BIS2211.TankApp.Model;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+//import java.util.Date;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -18,12 +18,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ScheduledTasks {
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    //private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     
     @Autowired
     LeaderboardDataService leaderboardDataService;
     
-    @Scheduled(fixedRate = 86400000)
+    //@Scheduled(fixedRate = 86400000)
+    @Scheduled(fixedRate = 30000)
 	public void databaseMaintenance() {
         System.out.println("Starting database maintenance");
         ArrayList<LeaderboardData> ldData = leaderboardDataService.getAllData(); 
