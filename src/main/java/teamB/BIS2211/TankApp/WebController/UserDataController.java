@@ -12,18 +12,18 @@ import teamB.BIS2211.TankApp.Model.LeaderboardData;
 import teamB.BIS2211.TankApp.Model.LeaderboardDataService;
 
 @Controller
-public class LeaderboardController 
+public class UserDataController 
 {
 
     @Autowired
     LeaderboardDataService leaderboardDataService;
 
-    @GetMapping("/leaderboard")
+    @GetMapping("/userData")
     public String leaderboard(@CookieValue(value = "username", required=false, defaultValue = "") String username, final Model model)
     {
         model.addAttribute("username", username);
-        ArrayList<LeaderboardData> lbData = leaderboardDataService.getAllData(); 
+        ArrayList<LeaderboardData> lbData = leaderboardDataService.getDataByUser(username); 
         model.addAttribute("lbData", lbData);
-        return "leaderboard";
+        return "userData";
     }
 }

@@ -2,7 +2,6 @@ package teamB.BIS2211.TankApp.WebController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import teamB.BIS2211.TankApp.ApiData.ApiData;
 
