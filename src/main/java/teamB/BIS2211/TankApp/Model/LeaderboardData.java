@@ -26,7 +26,7 @@ public class LeaderboardData
 
     private Timestamp timestamp; 
 
-    private boolean checked = false; 
+    private boolean checked; 
 
     public long getId()
     {
