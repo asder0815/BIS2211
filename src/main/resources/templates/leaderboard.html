@@ -39,8 +39,8 @@
                 <thead>
                     <tr>
                         <th class="align-middle"> Name </th>
-                        <th class="align-middle"> Anzahl Tankungen </th>
-                        <th class="align-middle">  Gespart </th>
+                        <th class="align-middle sorttable_numeric"> Anzahl Tankungen </th>
+                        <th class="align-middle sorttable_numeric">  Gespart </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +50,9 @@
                     <tr th:each="ld : ${leaderboardEntries}">
                         <td class="align-middle"><span th:text="${ld.getName()}"> Name </span></td>
                         <td class="align-middle"><span th:text="${ld.getAmountBookings()}"> Anzahl Tankungen </span></td>
-                        <td class="align-middle"><span th:text="${ld.getAmountSaved()}"> Gespart </span></td>
+                        <td class="align-middle bg-danger" th:if="${ld.didSave()} == 0"><span th:text="${ld.getSavedString()}"> Gespart </span></td>
+                        <td class="align-middle bg-success" th:if="${ld.didSave()} == 1"><span th:text="${ld.getSavedString()}"> Gespart </span></td>
+                        <td class="align-middle bg-warning" th:if="${ld.didSave()} == 2"><span th:text="${ld.getSavedString()}"> Gespart </span></td>
                     </tr>
                 </tbody>
             </table>
