@@ -99,8 +99,15 @@ public class LeaderboardData
 
     public String getAmountSaved()
     {
-        if(priceDeviation == -69) return "Wird berechnet..."; 
-        else return "" + (priceDeviation * (-1) * amount); 
+        if(!checked) return "Wird berechnet..."; 
+        else 
+        {
+            String sign = ""; 
+            if(priceDeviation > 0) sign = "+ "; 
+            else sign = "- ";
+            if(priceDeviation == 0) sign = "";
+            return sign + String.format("%.2f", Math.abs(priceDeviation * amount)) + "€"; 
+        }
     }
 
     public String getFormattedTimestamp()
@@ -112,5 +119,12 @@ public class LeaderboardData
         int year = cal.get(Calendar.YEAR); 
         int hour = cal.get(Calendar.HOUR_OF_DAY); 
         return "" + day + "." + month + "." + year + " " + hour + " Uhr";
+    }
+
+    public int didSave()
+    {
+        if(priceDeviation == -69 || priceDeviation == 0) return 2; 
+        if(priceDeviation < 0) return 1; 
+        else return 0; 
     }
 }

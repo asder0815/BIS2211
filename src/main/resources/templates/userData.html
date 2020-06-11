@@ -50,9 +50,9 @@
                 <thead>
                     <tr>
                         <th class="align-middle"> Typ </th>
-                        <th class="align-middle"> Menge </th>
-                        <th class="align-middle"> Preis </th>
-                        <th class="align-middle"> Gespart </th>
+                        <th class="align-middle  sorttable_numeric"> Menge </th>
+                        <th class="align-middle  sorttable_numeric"> Preis </th>
+                        <th class="align-middle  sorttable_numeric"> Gespart </th>
                         <th class="align-middle"> Datum </th>
                     </tr>
                 </thead>
@@ -64,7 +64,9 @@
                         <td class="align-middle"><span th:text="${ld.getType()}"> Typ </span></td>
                         <td class="align-middle"><span th:text="${ld.getAmount()}"> Menge </span></td>
                         <td class="align-middle"><span th:text="${ld.getPricePayed()}"> Preis </span></td>
-                        <td class="align-middle"><span th:text="${ld.getAmountSaved()}"> Gespart </span></td>
+                        <td class="align-middle bg-danger" th:if="${ld.didSave()} == 0"><span th:text="${ld.getAmountSaved()}"> Gespart </span></td>
+                        <td class="align-middle bg-success" th:if="${ld.didSave()} == 1"><span th:text="${ld.getAmountSaved()}"> Gespart </span></td>
+                        <td class="align-middle bg-warning" th:if="${ld.didSave()} == 2"><span th:text="${ld.getAmountSaved()}"> Gespart </span></td>
                         <td class="align-middle"><span th:text="${ld.getFormattedTimestamp()}"> Datum </span></td>
                     </tr>
                 </tbody>
@@ -95,6 +97,12 @@
                 </div>
                 <div class="col-2">
                     <button name="search" class="btn btn-primary" onclick="geocode(document.getElementById('cityField').value, document.getElementById('streetField').value, document.getElementById('houseNrField').value)">Suchen</button>
+                </div>
+            </div>
+            <br>
+            <div class="form-row row align-items-center">
+                <div class="list-group col-8 offset-md-2" id="selectedGS">
+                    <li class='list-group-item list-group-item-action'> Keine Tankstelle ausgewählt.</li>
                 </div>
             </div>
             <br>
@@ -278,6 +286,10 @@
                 }
             });
         }
+        if(!list.hasChildNodes())
+        {
+            $('#gsList').append("<li class='list-group-item list-group-item-action' onclick='closeModal()'>" + "Keine Tankstellen gefunden." + "<br>" + "Bitte Eingaben überprüfen." +"</li>"); 
+        }
         openModal(); 
         });
     }
@@ -299,13 +311,28 @@
             var areEqual = city == gsCity;
             if(areEqual) addGSToList(gs); 
         }
+        if(!list.hasChildNodes())
+        {
+            $('#gsList').append("<li class='list-group-item list-group-item-action' onclick='closeModal()'>" + "Keine Tankstellen gefunden." + "<br>" + "Bitte Eingaben überprüfen." +"</li>");
+        }
         openModal(); 
         });
     }
 
     function addGSToList(gasStation)
-    {   
-        $('.list-group').append("<li class='list-group-item list-group-item-action' onclick='getLivePrices(\"" + gasStation.uuid + "\")'>" + gasStation.name + "<br>" + gasStation.street + ", " + gasStation.post_code + " " + gasStation.city +"</li>"); 
+    {  
+        var gsString = gasStation.name + "<br>" + gasStation.street + ", " + gasStation.post_code + " " + gasStation.city; 
+        $('#gsList').append("<li class='list-group-item list-group-item-action' onclick='getLivePrices(\"" + gasStation.uuid + "\");selectGS(\"" + gsString + "\");'>" + gasStation.name + "<br>" + gasStation.street + ", " + gasStation.post_code + " " + gasStation.city +"</li>"); 
+    }
+
+    function selectGS(name)
+    {  
+        var list = document.getElementById("selectedGS");
+        while (list.hasChildNodes()) 
+        {  
+            list.removeChild(list.firstChild);
+        }
+        $('#selectedGS').append("<li class='list-group-item list-group-item-action'>" + name + "</li>"); 
     }
 
     function getLivePrices(id)
@@ -351,6 +378,11 @@
         else alert("Tankstelle hat geschlossen.")
     }
 
+    function getGSName(name)
+    {
+
+    }
+
     function setPrices()
     {
         var type = document.getElementById("selectType").value; 
@@ -394,6 +426,7 @@
         jQuery.noConflict();
         $("#myModal").modal("show")
     }
+
     function closeModal()
     {
         jQuery.noConflict();

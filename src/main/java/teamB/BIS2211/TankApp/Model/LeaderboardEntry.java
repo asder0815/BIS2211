@@ -38,8 +38,24 @@ public class LeaderboardEntry
         float amountSaved = 0; 
         for(LeaderboardData entry : bookings)
         {
-            amountSaved += (entry.getAmount() * entry.getPriceDeviation() * -1); 
+            amountSaved += (entry.getAmount() * entry.getPriceDeviation()); 
         }
         return amountSaved;
+    }
+
+    public String getSavedString()
+    {
+        String sign = ""; 
+        if(amountSaved < 0) sign = "- "; 
+        else sign = "+ ";
+        if(amountSaved == 0) sign = "";
+        return sign + String.format("%.2f", Math.abs(amountSaved)) + "€"; 
+    }
+
+    public int didSave()
+    {
+        if(amountSaved == 0) return 2; 
+        if(amountSaved < 0) return 1; 
+        else return 0; 
     }
 }
