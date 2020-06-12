@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-</head>
+</head> 
 <body>
     <header>
         <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
@@ -40,7 +40,7 @@
                     <tr>
                         <th class="align-middle"> Name </th>
                         <th class="align-middle sorttable_numeric"> Anzahl Tankungen </th>
-                        <th class="align-middle sorttable_numeric">  Gespart </th>
+                        <th class="align-middle sorttable_numeric" id="savedColumn">  Gespart </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +70,21 @@
     <!--  Cookies -->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     
+    <script th:inline="javascript">
+        function sortLeaderboard()
+        {
+            var myTH = document.getElementById("savedColumn");
+            sorttable.innerSortFunction.apply(myTH, []);
+        }
+
+        $( document ).ready(function() 
+        {
+            sortLeaderboard(); 
+        });
+    </script>
+    
+
     <button class="btn btn-danger" type="button" onclick="createTestData()">Create Test Data</button> 
+    <button class="btn btn-danger" type="button" onclick="sortLeaderboard()">Sort</button> 
 
 </body>
