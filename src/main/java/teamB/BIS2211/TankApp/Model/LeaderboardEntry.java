@@ -13,7 +13,7 @@ public class LeaderboardEntry
     {
         this.name = name;
         this.bookings = bookings;
-        this.amountBookings = bookings.size();
+        this.amountBookings = calculateNumberEntries(bookings); 
         this.amountSaved = calculateAmountSaved(bookings);
     }
 
@@ -38,9 +38,19 @@ public class LeaderboardEntry
         float amountSaved = 0; 
         for(LeaderboardData entry : bookings)
         {
-            amountSaved += (entry.getAmount() * entry.getPriceDeviation()); 
+            if(entry.isChecked()) amountSaved += (entry.getAmount() * entry.getPriceDeviation()); 
         }
         return amountSaved;
+    }
+
+    private static int calculateNumberEntries(ArrayList<LeaderboardData> bookings)
+    {
+        int i = 0; 
+        for(LeaderboardData entry : bookings)
+        {
+            if(entry.isChecked()) i++; 
+        }
+        return i; 
     }
 
     public String getSavedString()
