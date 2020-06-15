@@ -1,86 +1,76 @@
-var map, infoWindow, popup, Popup;
+var mymap, radFloat, popup, Popup;
 
-function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 48.869, lng: 8.636},
-          zoom: 13
-        });
-        infoWindow = new google.maps.InfoWindow;
+function initMap(rad, list) {
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            var marker = new google.maps.Marker({position: pos, map: map});
+  radFloat = Number(rad) * 1000;
 
-            showStations();
+  mymap = L.map('mapid').locate({ setView: true, maxZoom: 18 });
 
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1Ijoia2FyYWRlbmIiLCJhIjoiY2tiZjNyMWRuMDVrcDJ5bWxqd2xkMmlrayJ9.9dfIhA52TTDorCgtuLrAsg'
+  }).addTo(mymap);
+
+  function onLocationFound(e) {
+
+
+    L.marker(e.latlng).addTo(mymap)
+      .bindPopup("Dein").openPopup();
+
+    L.circle(e.latlng, radFloat).addTo(mymap);
+  }
+  mymap.on('locationfound', onLocationFound);
+
+  showStations(list);
+}
+
+
+function showStations(list) {
+
+  for (var i = 0; i < list[0].length; i++) {
+    var gs = list[0][i];
+
+    var lat = gs.lat;
+    var lon = gs.lon;
+
+    console.log(lat, lon);
+
+    L.circle([lat, lon], radFloat).addTo(mymap);
+
+    var popup = L.popup()
+      .setLatLng([lat, lon])
+      .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+      .addTo(mymap);
+  }
+
+  list[0].forEach(element => {
+
+  })
+
+}
+
+
+
+
 
 function updateMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 48.869, lng: 8.636},
-          zoom: 13
-        });
-        infoWindow = new google.maps.InfoWindow;
-
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            var marker = new google.maps.Marker({position: pos, map: map});
-
-            showStations();
-
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
-
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
-
-
-function showStations(){
-    var pos = {
-        lat: 48.875,
-        lng: 8.64
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
       };
-    var contentString = '<div id="content">'+
-    '<div id="siteNotice">'+
-    '</div>'+
-    '<h5 id="firstHeading" class="firstHeading">Tankstelle</h5>'+
-    '<div id="bodyContent">'+
-    '<p><b>Tankstelle Testergebnis</b>'+
-    '<p> <a href="main">Details</a> </p>'+
-    '</div>'+
-    '</div>';
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(contentString);
-    infoWindow.open(map);
+      var marker = new google.maps.Marker({ position: pos, map: map });
+
+      showStations();
+
+      map.setCenter(pos);
+    });
+  }
 }
+
 

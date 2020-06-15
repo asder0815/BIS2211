@@ -1,13 +1,14 @@
 package teamB.BIS2211.TankApp.WebController;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
+import java.util.Arrays;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import teamB.BIS2211.TankApp.ApiData.ApiData;
 import teamB.BIS2211.TankApp.Model.GasStation;
 
@@ -16,7 +17,7 @@ public class MainController
 {
   @GetMapping("/main")
   public String main(
-    @RequestParam(name="name", required=false, defaultValue="lizer") final String name, 
+    @RequestParam(name="name", required=false, defaultValue="lizer") final String name,
     @RequestParam(name="lat", required=false, defaultValue="") final String lat,
     @RequestParam(name="lon", required=false, defaultValue="") final String lon,
     @RequestParam(name="rad", required=false, defaultValue="") final String rad,
@@ -32,6 +33,8 @@ public class MainController
     //final ArrayList<GasStation> favList = ApiData.createTestData(); //for testing purposes to not consume API data
     model.addAttribute("favList", favList);
     model.addAttribute("favString", favs);
+    model.addAttribute("rad", rad);
+    model.addAttribute("jsList", Arrays.asList(gsList));
 		return "main";
   }
 

@@ -24,7 +24,7 @@ public class ScheduledTasks {
     LeaderboardDataService leaderboardDataService;
     
     //@Scheduled(fixedRate = 86400000)
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 30000000)
 	public void databaseMaintenance() {
         System.out.println("Starting database maintenance");
         ArrayList<LeaderboardData> ldData = leaderboardDataService.getAllData(); 
