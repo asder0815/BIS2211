@@ -154,7 +154,7 @@
                         <td class="align-middle"><span th:text="${gs.getDistance()}"> Entfernung </span></td>
                         <td class="align-middle"><span th:text="${gs.getOpenStatus()}"> Geöffnet </span></td>
                         <td class="align-middle">
-                            <button th:id="'showGraph' + ${gs.getId()}" class="btn btn-primary" onclick="showGraph(this.id)">
+                            <button th:id="'showGraph' + ${gs.getId()}" class="btn btn-primary" onclick="getDataArray(this.id)">
                                 <i data-toggle="tooltip" data-placement="right" title="Preishistorie anzeigen" class="material-icons align-middle"> show_chart </i>
                             </button>   
                         </td>
@@ -177,7 +177,7 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <div id="curve_chart" style="width: 900px; height: 500px"></div> 
+                <div id="curve_chart" ></div> 
             </div>
             <div class="modal-footer">
               <button id="modalClose" type="button" class="btn btn-danger" data-dismiss="modal">Schließen</button>
@@ -200,7 +200,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script th:inline="javascript"> 
 
-        google.charts.load('current', {'packages':['corechart']});
 
         var automaticFill = false; 
 
@@ -341,15 +340,16 @@
                 }
             });
         }
-        
-        function showGraph(id)
+        google.charts.load('current', {'packages':['corechart']});
+
+        function showGraph(ar)
         {
             var data = google.visualization.arrayToDataTable(
-                getDataArray(id)
+                ar
             );
 
             var options = {
-            title: 'Company Performance',
+            title: 'Preisabweichung nach Stunden',
             curveType: 'function',
             legend: { position: 'bottom' }
             };
@@ -373,25 +373,24 @@
         }
         function getDataArray(id)
         {
-            var url = id.replaceAll("-","/");
+            var url = id.replace(/-/g,"/");
             url = url.replace("showGraph","");
             var settings = {
             "url": "https://www.volzinnovation.com/fuel_price_variations_germany/data/"+url+"/diesel.json",
             "method": "GET",
-            "timeout": 0,
-            "headers": {
-                "Cookie": "__cfduid=df84e33000d058fecfe08e3a985a48c191592490645"
-            },
+            "timeout": 0
             };
 
             $.ajax(settings).done(function (response) {
                 console.log(response);
-                var graphArray = [['Stunde', 'Preisabweichung']];
+                var graphArray = [];
+                var header = ["Stunde", "Preisabweichung"];
+                graphArray.push(header);
                 response.forEach(element => {
                     var chickenCamData = [element.hour,element.price];
                     graphArray.push(chickenCamData);
                 });
-                return graphArray;
+               showGraph(graphArray);
             });
         }
     </script>
