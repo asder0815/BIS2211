@@ -4,22 +4,14 @@ function toggleFav(clicked_id)
 	var favList = Cookies.get("cfavourites");
 	if (favList == null) 
 	{
-<<<<<<< Updated upstream
-		Cookies.set("cfavourites", id + "/", {expires: -1});
-=======
 		Cookies.set("cfavourites", id + "/", {expires: 9999});
->>>>>>> Stashed changes
 		location.reload(); 
 	}
 	else 
 	{
 		if(!favList.includes(id))
 		{
-<<<<<<< Updated upstream
-			Cookies.set("cfavourites", favList + id + "/", {expires: -1});
-=======
 			Cookies.set("cfavourites", favList + id + "/", {expires: 9999});
->>>>>>> Stashed changes
 		}
 		else
 		{
@@ -30,11 +22,7 @@ function toggleFav(clicked_id)
 			}
 			else
 			{
-<<<<<<< Updated upstream
-				Cookies.set("cfavourites", newList, {expires: -1});
-=======
 				Cookies.set("cfavourites", newList, {expires: 9999});
->>>>>>> Stashed changes
 			}			
 		}
 		location.reload();
@@ -82,10 +70,29 @@ function showError(error)
 
 function submitUsername(name) 
 {
-<<<<<<< Updated upstream
-	Cookies.set("username", name, {expires: -1});
-=======
-	Cookies.set("username", name, {expires: 9999});
->>>>>>> Stashed changes
-	location.reload(); 
+	var url = "http://localhost:8080/leaderboardData/search/findByUser?name=" + name; 
+	var requestOptions = {
+		method: 'GET',
+		redirect: 'follow'
+	  };
+	  
+	fetch(url, requestOptions)
+	.then(response => response.text())
+	.then(result => checkUsername(result, name))
+	.catch(error => console.log('error', error));
+}
+
+
+function checkUsername(data, name)
+{
+	var resonse = JSON.parse(data); 
+	if(resonse._embedded.leaderboardData.length >= 1) 
+	{
+		alert("Username already exists. Please choose another one."); 
+	}
+	else
+	{
+		Cookies.set("username", name, {expires: 9999});
+		location.reload();
+	}
 }
