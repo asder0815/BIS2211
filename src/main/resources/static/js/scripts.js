@@ -4,14 +4,14 @@ function toggleFav(clicked_id)
 	var favList = Cookies.get("cfavourites");
 	if (favList == null) 
 	{
-		Cookies.set("cfavourites", id + "/", {expires: 2});
+		Cookies.set("cfavourites", id + "/", {expires: 9999});
 		location.reload(); 
 	}
 	else 
 	{
 		if(!favList.includes(id))
 		{
-			Cookies.set("cfavourites", favList + id + "/", {expires: 2});
+			Cookies.set("cfavourites", favList + id + "/", {expires: 9999});
 		}
 		else
 		{
@@ -22,7 +22,7 @@ function toggleFav(clicked_id)
 			}
 			else
 			{
-				Cookies.set("cfavourites", newList, {expires: 2});
+				Cookies.set("cfavourites", newList, {expires: 9999});
 			}			
 		}
 		location.reload();
@@ -92,7 +92,7 @@ function checkUsername(data, name)
 	}
 	else
 	{
-		Cookies.set("username", name, {expires: 2});
+		Cookies.set("username", name, {expires: 9999});
 		location.reload();
 	}
 }
