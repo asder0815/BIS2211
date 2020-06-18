@@ -154,6 +154,11 @@
                         <td class="align-middle"><span th:text="${gs.getDistance()}"> Entfernung </span></td>
                         <td class="align-middle"><span th:text="${gs.getOpenStatus()}"> Geöffnet </span></td>
                         <td class="align-middle">
+                            <button th:id="'showGraph' + ${gs.getId()}" class="btn btn-primary" onclick="showGraph(this.id)">
+                                <i data-toggle="tooltip" data-placement="right" title="Preishistorie anzeigen" class="material-icons align-middle"> show_chart </i>
+                            </button>   
+                        </td>
+                        <td class="align-middle">
                             <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
                                 <i data-toggle="tooltip" data-placement="right" title="zu Favoriten hinzufügen" class="material-icons align-middle" th:unless="${favString.contains(gs.getId())}"> add_circle </i>
                                 <i data-toggle="tooltip" data-placement="right" title="von Favoriten entfernen" class="material-icons align-middle" th:if="${favString.contains(gs.getId())}"> remove_circle </i>
@@ -162,6 +167,22 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">ByFabianandFabianalone</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="curve_chart" style="width: 900px; height: 500px"></div> 
+            </div>
+            <div class="modal-footer">
+              <button id="modalClose" type="button" class="btn btn-danger" data-dismiss="modal">Schließen</button>
+            </div>
+          </div>
         </div>
     </div>
 
@@ -174,8 +195,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <!--  Cookies -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script th:inline="javascript"> 
+
+        google.charts.load('current', {'packages':['corechart']});
 
         var automaticFill = false; 
 
@@ -212,8 +237,7 @@
                 statusCode: {
                 200: function(response){
                     if(street == "")
-                    {
-                        var resList; 
+                    { 
                         response.results.forEach(element => {
                             if(element.components._type == "city" && element.components.country == "Deutschland")
                             {
@@ -221,6 +245,16 @@
                                 return; 
                             }
                         }); 
+                    }
+                    else
+                     {
+                        response.results.forEach(element => {
+                            if(element.components.country == "Deutschland")
+                            {
+                                setCoords(element.geometry); 
+                                return; 
+                            }
+                        });
                     } 
                 },
                 402: function(){
@@ -306,7 +340,60 @@
                 }
                 }
             });
-        } 
+        }
+        
+        function showGraph(id)
+        {
+            var data = google.visualization.arrayToDataTable(
+                getDataArray(id)
+            );
+
+            var options = {
+            title: 'Company Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+
+            openModal();   
+        }
+        function openModal()
+        {
+            jQuery.noConflict();
+            $("#myModal").modal("show")
+        }
+
+        function closeModal()
+        {
+            jQuery.noConflict();
+            $("#myModal").modal("hide")
+        }
+        function getDataArray(id)
+        {
+            var url = id.replaceAll("-","/");
+            url = url.replace("showGraph","");
+            var settings = {
+            "url": "https://www.volzinnovation.com/fuel_price_variations_germany/data/"+url+"/diesel.json",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Cookie": "__cfduid=df84e33000d058fecfe08e3a985a48c191592490645"
+            },
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                var graphArray = [['Stunde', 'Preisabweichung']];
+                response.forEach(element => {
+                    var chickenCamData = [element.hour,element.price];
+                    graphArray.push(chickenCamData);
+                });
+                return graphArray;
+            });
+        }
     </script>
 
 </body>
