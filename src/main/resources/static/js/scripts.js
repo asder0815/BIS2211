@@ -70,8 +70,31 @@ function showError(error)
 
 function submitUsername(name) 
 {
-	Cookies.set("username", name, {expires: 2});
-	location.reload(); 
+	var url = "http://localhost:8080/leaderboardData/search/findByUser?name=" + name; 
+	var requestOptions = {
+		method: 'GET',
+		redirect: 'follow'
+	  };
+	  
+	fetch(url, requestOptions)
+	.then(response => response.text())
+	.then(result => checkUsername(result, name))
+	.catch(error => console.log('error', error));
+}
+
+
+function checkUsername(data, name)
+{
+	var resonse = JSON.parse(data); 
+	if(resonse._embedded.leaderboardData.length >= 1) 
+	{
+		alert("Username already exists. Please choose another one."); 
+	}
+	else
+	{
+		Cookies.set("username", name, {expires: 2});
+		location.reload();
+	}
 }
 
 function addLD(name, gsID, amount, type, price)
