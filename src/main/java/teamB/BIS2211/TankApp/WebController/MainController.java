@@ -20,6 +20,7 @@ public class MainController
     @RequestParam(name="lat", required=false, defaultValue="") final String lat,
     @RequestParam(name="lon", required=false, defaultValue="") final String lon,
     @RequestParam(name="rad", required=false, defaultValue="") final String rad,
+    @RequestParam(name="fuelType", required=false, defaultValue="") final String fuelType,
     @CookieValue(value = "cfavourites", defaultValue = "") String favs,
     final Model model) 
   {
@@ -32,6 +33,7 @@ public class MainController
     //final ArrayList<GasStation> favList = ApiData.createTestData(); //for testing purposes to not consume API data
     model.addAttribute("favList", favList);
     model.addAttribute("favString", favs);
+    model.addAttribute("fuelType", fuelType);
 		return "main";
   }
 
