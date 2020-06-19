@@ -433,14 +433,21 @@
             );
 
             var options = {
-            title: 'Preisabweichung nach Stunden',
+            title: 'Preisabweichung nach Stunden (Vortag)',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            chartArea: {width:"100%", height:"70%"},
+            pointSize: 3,
+            dataOpacity: 0.8
+
+        
+            
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
             chart.draw(data, options);
+            
 
             openModal();   
         }
@@ -470,10 +477,13 @@
             $.ajax(settings).done(function (response) {
                 console.log(response);
                 var graphArray = [];
-                var header = ["Stunde", "Preisabweichung"];
+                var header = ["Stunde", "Preisabweichung", {"type": "string","role": "style"}];
                 graphArray.push(header);
+                var d = new Date();
+                var h = d.getHours();
                 response.forEach(element => {
-                    var chickenCamData = [element.hour,element.price];
+                    var chickenCamData = [element.hour,element.price,null];
+                    if(h == element.hour)chickenCamData=[element.hour,element.price,"point{size:6; shape-type:circle;fill-color:#5e1224;}"]
                     graphArray.push(chickenCamData);
                 });
                showGraph(graphArray);
