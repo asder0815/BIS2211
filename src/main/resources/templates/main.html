@@ -55,6 +55,17 @@
                 <form class="form-horizontal" id="searchForm" th:action="@{/main}">
                     <div class="row justify-content-center">
                         <div class="col-md-auto">
+                            <h4> Treibstoffart: </h4>
+                        </div>
+                        <div class="col-md-auto">
+                            <select class="form-control" th:name="fuelType" id="fuelSelect">
+                                <option value="diesel"> Diesel </option>
+                                <option value="e5"> E5 </option>
+                                <option value="e10"> E10 </option>
+                                <option value="all"> Alle </option>
+                            </select>
+                        </div>
+                        <div class="col-md-auto">
                             <h4> Im Umkreis von: </h4>
                         </div>
                         <div class="col-md-auto">
@@ -92,9 +103,9 @@
                 <thead>
                     <tr>
                         <th class="align-middle sorttable_nosort"> Name </th>
-                        <th class="align-middle"> Diesel </th>
-                        <th class="align-middle"> E5 </th>
-                        <th class="align-middle"> E10 </th>
+                        <th th:if="${fuelType} == 'diesel' or ${fuelType} == 'all'" class="align-middle"> Diesel </th>
+                        <th th:if="${fuelType} == 'e5' or ${fuelType} == 'all'" class="align-middle"> E5 </th>
+                        <th th:if="${fuelType} == '10' or ${fuelType} == 'all'" class="align-middle"> E10 </th>
                         <th class="align-middle sorttable_nosort"> Adresse </th>
                         <th class="align-middle"> Geöffnet </th>
                     </tr>
@@ -103,16 +114,55 @@
                     <tr th:if="${favList.empty}">
                         <td colspan="2"> Keine Favourtien vorhanden. </td>
                     </tr>
-                    <tr th:each="fav : ${favList}">
-                        <td class="align-middle"><span th:text="${fav.getName()}"> Name </span></td>
-                        <td class="align-middle"><span th:text="${fav.getDieselPrice()}"> Diesel Preis </span></td>
-                        <td class="align-middle"><span th:text="${fav.getE5Price()}"> E5 Preis </span></td>
-                        <td class="align-middle"><span th:text="${fav.getE10Price()}"> E10 Preis </span></td>
-                        <td class="align-middle"><span th:text="${fav.getStreet()}"> Adresse </span></td>
-                        <td class="align-middle"><span th:text="${fav.getOpenStatus()}"> Geöffnet </span></td>
+                    <tr th:each="gs : ${favList}">
+                        <td class="align-middle"><span th:text="${gs.getName()}"> Name </span></td>
+                        <td th:if="${fuelType} == 'diesel' or ${fuelType} == 'all'" class="align-middle">
+                            <button th:if="${gs.getCurrentPrediction('diesel')} == 0" th:id="'showGraph' + ${gs.getId()}" class="btn btn-danger" onclick="getDataArray(this.id, 'diesel')">
+                                <span th:text="${gs.getDieselPrice()}"> Diesel Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('diesel')} == 1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-success" onclick="getDataArray(this.id, 'diesel')">
+                                <span th:text="${gs.getDieselPrice()}"> Diesel Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('diesel')} == 2" th:id="'showGraph' + ${gs.getId()}" class="btn btn-warning" onclick="getDataArray(this.id, 'diesel')">
+                                <span th:text="${gs.getDieselPrice()}"> Diesel Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('diesel')} == -1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-secondary">
+                                <span th:text="${gs.getDieselPrice()}"> Diesel Preis </span>
+                            </button>
+                        </td>
+                        <td th:if="${fuelType} == 'e5' or ${fuelType} == 'all'" class="align-middle">
+                            <button th:if="${gs.getCurrentPrediction('e5')} == 0" th:id="'showGraph' + ${gs.getId()}" class="btn btn-danger" onclick="getDataArray(this.id, 'e5')">
+                                <span th:text="${gs.getE5Price()}"> E5 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e5')} == 1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-success" onclick="getDataArray(this.id, 'e5')">
+                                <span th:text="${gs.getE5Price()}"> E5 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e5')} == 2" th:id="'showGraph' + ${gs.getId()}" class="btn btn-warning" onclick="getDataArray(this.id, 'e5')">
+                                <span th:text="${gs.getE5Price()}"> E5 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e5')} == -1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-secondary">
+                                <span th:text="${gs.getE5Price()}"> E5 Preis </span>
+                            </button>
+                        </td>
+                        <td th:if="${fuelType} == 'e10' or ${fuelType} == 'all'" class="align-middle">
+                            <button th:if="${gs.getCurrentPrediction('e10')} == 0" th:id="'showGraph' + ${gs.getId()}" class="btn btn-danger" onclick="getDataArray(this.id, 'e10')">
+                                <span th:text="${gs.getE10Price()}"> E10 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e10')} == 1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-success" onclick="getDataArray(this.id, 'e10')">
+                                <span th:text="${gs.getE10Price()}"> E10 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e10')} == 2" th:id="'showGraph' + ${gs.getId()}" class="btn btn-warning" onclick="getDataArray(this.id, 'e10')">
+                                <span th:text="${gs.getE10Price()}"> E10 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e10')} == -1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-secondary">
+                                <span th:text="${gs.getE10Price()}"> E10 Preis </span>
+                            </button>
+                        </td>
+                        <td class="align-middle"><span th:utext="${gs.getAddress()}"> Adresse </span></td>
+                        <td class="align-middle"><span th:text="${gs.getOpenStatus()}"> Geöffnet </span></td>
                         <td class="align-middle">
-                            <button th:id="'favourite' + ${fav.getId()}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Favorit hinzufügen/entfernen" onclick="toggleFav(this.id)">
-                                <i data-placement="right" title="von Favoriten entfernen" class="material-icons align-middle"> remove_circle </i>
+                            <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Favorit hinzufügen/entfernen" onclick="toggleFav(this.id)">
+                                <i data-placement="right" title="von Favoriten entfernen" class="material-icons align-middle"> clear </i>
                             </button>
                         </td>
                     </tr>
@@ -133,9 +183,9 @@
                 <thead>
                     <tr>
                         <th class="align-middle sorttable_nosort"> Name </th>
-                        <th class="align-middle"> Diesel </th>
-                        <th class="align-middle"> E5 </th>
-                        <th class="align-middle"> E10 </th>
+                        <th th:if="${fuelType} == 'diesel' or ${fuelType} == 'all'" class="align-middle"> Diesel </th>
+                        <th th:if="${fuelType} == 'e5' or ${fuelType} == 'all'" class="align-middle"> E5 </th>
+                        <th th:if="${fuelType} == 'e10' or ${fuelType} == 'all'" class="align-middle"> E10 </th>
                         <th class="align-middle sorttable_nosort"> Adresse </th>
                         <th class="align-middle"> Entfernung </th>
                         <th class="align-middle"> Geöffnet </th>
@@ -147,21 +197,76 @@
                     </tr>
                     <tr th:each="gs : ${gsList}">
                         <td class="align-middle"><span th:text="${gs.getName()}"> Name </span></td>
-                        <td class="align-middle"><span th:text="${gs.getDieselPrice()}"> Diesel Preis </span></td>
-                        <td class="align-middle"><span th:text="${gs.getE5Price()}"> E5 Preis </span></td>
-                        <td class="align-middle"><span th:text="${gs.getE10Price()}"> E10 Preis </span></td>
-                        <td class="align-middle"><span th:text="${gs.getStreet()}"> Adresse </span></td>
+                        <td th:if="${fuelType} == 'diesel' or ${fuelType} == 'all'" class="align-middle">
+                            <button th:if="${gs.getCurrentPrediction('diesel')} == 0" th:id="'showGraph' + ${gs.getId()}" class="btn btn-danger" onclick="getDataArray(this.id, 'diesel')">
+                                <span th:text="${gs.getDieselPrice()}"> Diesel Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('diesel')} == 1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-success" onclick="getDataArray(this.id, 'diesel')">
+                                <span th:text="${gs.getDieselPrice()}"> Diesel Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('diesel')} == 2" th:id="'showGraph' + ${gs.getId()}" class="btn btn-warning" onclick="getDataArray(this.id, 'diesel')">
+                                <span th:text="${gs.getDieselPrice()}"> Diesel Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('diesel')} == -1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-secondary">
+                                <span th:text="${gs.getDieselPrice()}"> Diesel Preis </span>
+                            </button>
+                        </td>
+                        <td th:if="${fuelType} == 'e5' or ${fuelType} == 'all'" class="align-middle">
+                            <button th:if="${gs.getCurrentPrediction('e5')} == 0" th:id="'showGraph' + ${gs.getId()}" class="btn btn-danger" onclick="getDataArray(this.id, 'e5')">
+                                <span th:text="${gs.getE5Price()}"> E5 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e5')} == 1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-success" onclick="getDataArray(this.id, 'e5')">
+                                <span th:text="${gs.getE5Price()}"> E5 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e5')} == 2" th:id="'showGraph' + ${gs.getId()}" class="btn btn-warning" onclick="getDataArray(this.id, 'e5')">
+                                <span th:text="${gs.getE5Price()}"> E5 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e5')} == -1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-secondary">
+                                <span th:text="${gs.getE5Price()}"> E5 Preis </span>
+                            </button>
+                        </td>
+                        <td th:if="${fuelType} == 'e10' or ${fuelType} == 'all'" class="align-middle">
+                            <button th:if="${gs.getCurrentPrediction('e10')} == 0" th:id="'showGraph' + ${gs.getId()}" class="btn btn-danger" onclick="getDataArray(this.id, 'e10')">
+                                <span th:text="${gs.getE10Price()}"> E10 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e10')} == 1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-success" onclick="getDataArray(this.id, 'e10')">
+                                <span th:text="${gs.getE10Price()}"> E10 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e10')} == 2" th:id="'showGraph' + ${gs.getId()}" class="btn btn-warning" onclick="getDataArray(this.id, 'e10')">
+                                <span th:text="${gs.getE10Price()}"> E10 Preis </span>
+                            </button>
+                            <button th:if="${gs.getCurrentPrediction('e10')} == -1" th:id="'showGraph' + ${gs.getId()}" class="btn btn-secondary">
+                                <span th:text="${gs.getE10Price()}"> E10 Preis </span>
+                            </button>
+                        </td>
+                        <td class="align-middle"><span th:utext="${gs.getAddress()}"> Adresse </span></td>
                         <td class="align-middle"><span th:text="${gs.getDistance()}"> Entfernung </span></td>
                         <td class="align-middle"><span th:text="${gs.getOpenStatus()}"> Geöffnet </span></td>
                         <td class="align-middle">
                             <button th:id="'favourite' + ${gs.getId()}" class="btn btn-primary" onclick="toggleFav(this.id)">
-                                <i data-toggle="tooltip" data-placement="right" title="zu Favoriten hinzufügen" class="material-icons align-middle" th:unless="${favString.contains(gs.getId())}"> add_circle </i>
-                                <i data-toggle="tooltip" data-placement="right" title="von Favoriten entfernen" class="material-icons align-middle" th:if="${favString.contains(gs.getId())}"> remove_circle </i>
+                                <i data-toggle="tooltip" data-placement="right" title="zu Favoriten hinzufügen" class="material-icons align-middle" th:unless="${favString.contains(gs.getId())}"> favorite </i>
+                                <i data-toggle="tooltip" data-placement="right" title="von Favoriten entfernen" class="material-icons align-middle" th:if="${favString.contains(gs.getId())}"> clear </i>
                             </button>   
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">ByFabianandFabianalone</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="curve_chart" ></div> 
+            </div>
+            <div class="modal-footer">
+              <button id="modalClose" type="button" class="btn btn-danger" data-dismiss="modal">Schließen</button>
+            </div>
+          </div>
         </div>
     </div>
 
@@ -174,8 +279,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <!--  Cookies -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script th:inline="javascript"> 
+
 
         var automaticFill = false; 
 
@@ -212,8 +320,7 @@
                 statusCode: {
                 200: function(response){
                     if(street == "")
-                    {
-                        var resList; 
+                    { 
                         response.results.forEach(element => {
                             if(element.components._type == "city" && element.components.country == "Deutschland")
                             {
@@ -221,6 +328,16 @@
                                 return; 
                             }
                         }); 
+                    }
+                    else
+                     {
+                        response.results.forEach(element => {
+                            if(element.components.country == "Deutschland")
+                            {
+                                setCoords(element.geometry); 
+                                return; 
+                            }
+                        });
                     } 
                 },
                 402: function(){
@@ -306,7 +423,72 @@
                 }
                 }
             });
-        } 
+        }
+        google.charts.load('current', {'packages':['corechart']});
+
+        function showGraph(ar)
+        {
+            var data = google.visualization.arrayToDataTable(
+                ar
+            );
+
+            var options = {
+            title: 'Preisabweichung nach Stunden (Vortag)',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            chartArea: {width:"100%", height:"70%"},
+            pointSize: 3,
+            dataOpacity: 0.8
+
+        
+            
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+            
+
+            openModal();   
+        }
+
+        function openModal()
+        {
+            jQuery.noConflict();
+            $("#myModal").modal("show")
+        }
+
+        function closeModal()
+        {
+            jQuery.noConflict();
+            $("#myModal").modal("hide")
+        }
+
+        function getDataArray(id, fuelType)
+        {
+            var url = id.replace(/-/g,"/");
+            url = url.replace("showGraph","");
+            var settings = {
+            "url": "https://www.volzinnovation.com/fuel_price_variations_germany/data/" + url + "/" + fuelType + ".json",
+            "method": "GET",
+            "timeout": 0
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                var graphArray = [];
+                var header = ["Stunde", "Preisabweichung", {"type": "string","role": "style"}];
+                graphArray.push(header);
+                var d = new Date();
+                var h = d.getHours();
+                response.forEach(element => {
+                    var chickenCamData = [element.hour,element.price,null];
+                    if(h == element.hour)chickenCamData=[element.hour,element.price,"point{size:6; shape-type:circle;fill-color:#5e1224;}"]
+                    graphArray.push(chickenCamData);
+                });
+               showGraph(graphArray);
+            });
+        }
     </script>
 
 </body>
