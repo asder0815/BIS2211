@@ -21,6 +21,7 @@ public class MainController
     @RequestParam(name="lat", required=false, defaultValue="") final String lat,
     @RequestParam(name="lon", required=false, defaultValue="") final String lon,
     @RequestParam(name="rad", required=false, defaultValue="") final String rad,
+    @RequestParam(name="fuelType", required=false, defaultValue="") final String fuelType,
     @CookieValue(value = "cfavourites", defaultValue = "") String favs,
     final Model model) 
   {
@@ -35,6 +36,7 @@ public class MainController
     model.addAttribute("favString", favs);
     model.addAttribute("rad", rad);
     model.addAttribute("jsList", Arrays.asList(gsList));
+    model.addAttribute("fuelType", fuelType);
 		return "main";
   }
 

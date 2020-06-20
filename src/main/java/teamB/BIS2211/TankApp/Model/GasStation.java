@@ -1,5 +1,14 @@
 package teamB.BIS2211.TankApp.Model;
 
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Calendar;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 public class GasStation 
 {
 	private String id; 
@@ -36,6 +45,10 @@ public class GasStation
 	}
 	public String getDistance(){
 		return this.dist + " km"; 
+	}
+	public String getAddress()
+	{
+		return street + " " + houseNumber + " <br> " + postCode + " " + place; 
 	}
 	
 	public String getId() {
@@ -142,6 +155,51 @@ public class GasStation
 		this.isOpen = isOpen;
 		this.houseNumber = houseNumber;
 		this.postCode = postCode;
+	}
+
+	public int getCurrentPrediction(String type)
+	{
+		String urlString =  "https://www.volzinnovation.com/fuel_price_variations_germany/data/" + this.id.replace("-", "/") + "/" + type.toLowerCase() + ".json"; 
+        URL url;
+        HttpURLConnection request;
+        try 
+        {
+            url = new URL(urlString); 
+            request = (HttpURLConnection) url.openConnection();
+            request.setDoOutput(true);
+            request.setRequestMethod("GET");
+            request.connect();
+            final JsonElement element = JsonParser.parseReader(new InputStreamReader(request.getInputStream()));
+            final JsonArray arr = element.getAsJsonArray();
+			float priceDev = arr.get(getCurrentHour()).getAsJsonObject().get("price").getAsFloat();
+			switch(type)
+			{
+				case "diesel": 
+					if(this.diesel == 0.0) return -1;
+					break; 
+				case "e5":
+					if(this.e5 == 0.0) return -1;
+					break; 
+				case "e10": 
+					if(this.e10 == 0.0) return -1;
+					break;
+				default:
+			}
+            if(priceDev == 0.0) return 2; 
+			if(priceDev < 0.0) return 1; 
+        	else return 0; 
+        }
+        catch (final Exception e) 
+        {
+			System.out.println("There was an error parsing the JSON data");
+			return 0; 
+        }
+	}
+	
+	private int getCurrentHour()
+	{
+		Calendar now = Calendar.getInstance();
+		return now.get(Calendar.HOUR_OF_DAY); 
 	}
 	
 	@Override

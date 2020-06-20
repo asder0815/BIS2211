@@ -4,14 +4,14 @@ function toggleFav(clicked_id)
 	var favList = Cookies.get("cfavourites");
 	if (favList == null) 
 	{
-		Cookies.set("cfavourites", id + "/", {expires: 2});
+		Cookies.set("cfavourites", id + "/", {expires: 9999});
 		location.reload(); 
 	}
 	else 
 	{
 		if(!favList.includes(id))
 		{
-			Cookies.set("cfavourites", favList + id + "/", {expires: 2});
+			Cookies.set("cfavourites", favList + id + "/", {expires: 9999});
 		}
 		else
 		{
@@ -22,7 +22,7 @@ function toggleFav(clicked_id)
 			}
 			else
 			{
-				Cookies.set("cfavourites", newList, {expires: 2});
+				Cookies.set("cfavourites", newList, {expires: 9999});
 			}			
 		}
 		location.reload();
@@ -70,8 +70,31 @@ function showError(error)
 
 function submitUsername(name) 
 {
-	Cookies.set("username", name, {expires: 2});
-	location.reload(); 
+	var url = "http://localhost:8080/leaderboardData/search/findByUser?name=" + name; 
+	var requestOptions = {
+		method: 'GET',
+		redirect: 'follow'
+	  };
+	  
+	fetch(url, requestOptions)
+	.then(response => response.text())
+	.then(result => checkUsername(result, name))
+	.catch(error => console.log('error', error));
+}
+
+
+function checkUsername(data, name)
+{
+	var resonse = JSON.parse(data); 
+	if(resonse._embedded.leaderboardData.length >= 1) 
+	{
+		alert("Username already exists. Please choose another one."); 
+	}
+	else
+	{
+		Cookies.set("username", name, {expires: 9999});
+		location.reload();
+	}
 }
 
 function addLD(name, gsID, amount, type, price)
