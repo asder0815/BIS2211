@@ -97,34 +97,6 @@ function checkUsername(data, name)
 	}
 }
 
-function addLD(name, gsID, amount, type, price)
-{
-	if(price == false) alert("Bitte eine gültige Treibstoffart auswählen!");
-	else
-	{
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", "application/json");
-
-		var raw = JSON.stringify({"user":name, "gsID": gsID, "amount":amount,"type":type,"pricePayed":price,"priceDeviation":-69,"timestamp":Date.now()});
-
-		var requestOptions = {
-		method: 'POST',
-		headers: myHeaders,
-		body: raw,
-		redirect: 'follow'
-		};
-
-		fetch("http://localhost:8080/leaderboardData", requestOptions)
-		.then(response => response.text())
-		.then(result => console.log(result))
-		.catch(error => console.log('error', error));	
-
-		setTimeout(function(){
-			location.reload();
-		}, 500); 
-	}
-}
-
 function createTestData()
 {
 	var yesterday = new Date();
