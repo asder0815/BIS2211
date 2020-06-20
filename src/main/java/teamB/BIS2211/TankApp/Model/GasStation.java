@@ -8,7 +8,7 @@ public class GasStation
 	private String street; 
 	private String place; 
 	private float lat; 
-	private float lon; 
+	private float lng; 
 	private float dist; 
 	private float diesel; 
 	private float e5; 
@@ -41,92 +41,92 @@ public class GasStation
 	public String getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 	public String getBrand() {
 		return brand;
 	}
-	public void setBrand(String brand) {
+	public void setBrand(final String brand) {
 		this.brand = brand;
 	}
 	public String getStreet() {
 		return street;
 	}
-	public void setStreet(String street) {
+	public void setStreet(final String street) {
 		this.street = street;
 	}
 	public String getPlace() {
 		return place;
 	}
-	public void setPlace(String place) {
+	public void setPlace(final String place) {
 		this.place = place;
 	}
 	public float getLat() {
 		return lat;
 	}
-	public void setLat(float lat) {
+	public void setLat(final float lat) {
 		this.lat = lat;
 	}
-	public float getLon() {
-		return lon;
+	public float getLng() {
+		return lng;
 	}
-	public void setLon(float lon) {
-		this.lon = lon;
+	public void setLng(final float lng) {
+		this.lng = lng;
 	}
 	public float getDist() {
 		return dist;
 	}
-	public void setDist(float dist) {
+	public void setDist(final float dist) {
 		this.dist = dist;
 	}
 	public float getDiesel() {
 		return diesel;
 	}
-	public void setDiesel(float diesel) {
+	public void setDiesel(final float diesel) {
 		this.diesel = diesel;
 	}
 	public float getE5() {
 		return e5;
 	}
-	public void setE5(float e5) {
+	public void setE5(final float e5) {
 		this.e5 = e5;
 	}
 	public float getE10() {
 		return e10;
 	}
-	public void setE10(float e10) {
+	public void setE10(final float e10) {
 		this.e10 = e10;
 	}
 	public boolean isOpen() {
 		return isOpen;
 	}
-	public void setOpen(boolean isOpen) {
+	public void setOpen(final boolean isOpen) {
 		this.isOpen = isOpen;
 	}
 	public String getHouseNumber() {
 		return houseNumber;
 	}
-	public void setHouseNumber(String houseNumber) {
+	public void setHouseNumber(final String houseNumber) {
 		this.houseNumber = houseNumber;
 	}
 	public String getPostCode() {
 		return postCode;
 	}
-	public void setPostCode(String postCode) {
+	public void setPostCode(final String postCode) {
 		this.postCode = postCode;
 	}
 	
 	public GasStation(){}
 	
-	public GasStation(String id, String name, String brand, String street, String place, float lat, float lon,
-			float dist, float diesel, float e5, float e10, boolean isOpen, String houseNumber, String postCode) {
+	public GasStation(final String id, final String name, final String brand, final String street, final String place, final float lat, final float lng,
+			final float dist, final float diesel, final float e5, final float e10, final boolean isOpen, final String houseNumber, final String postCode) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -134,7 +134,7 @@ public class GasStation
 		this.street = street;
 		this.place = place;
 		this.lat = lat;
-		this.lon = lon;
+		this.lng = lng;
 		this.dist = dist;
 		this.diesel = diesel;
 		this.e5 = e5;
