@@ -422,6 +422,7 @@
     function addLD(name, gsID, amount, type, price)
     {
         if(price == false) alert("Bitte eine gültige Treibstoffart auswählen!");
+        else if(!isNumber(document.getElementById("amountField").value)) alert("Bitte eine gültige Menge eingeben!");
         else
         {
             var myHeaders = new Headers();
@@ -463,6 +464,13 @@
     {
         jQuery.noConflict();
         $("#myModal").modal("hide")
+    }
+
+    function isNumber(n) 
+    {
+        'use strict';
+        n = n.replace(/\./g, '').replace(',', '.');
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
     </script>
 </body>
