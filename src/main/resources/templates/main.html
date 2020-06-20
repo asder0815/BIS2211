@@ -123,12 +123,22 @@
         </div>
     </div>
 
-    <div class="container-responsive " style= "margin-left: 2%; margin-top: 20px; margin-bottom: 20px" th:unless="${gsList.isEmpty()}" >
-        <div class="row">
-                <div  class="col col-lg">
-                    <div id="mapid" ></div>
-                    <script>initMap(rad, list);</script>
-                </div>    
+    <div style="width: 96%" class="card text-white bg-dark border-primary text-center mb-3" th:unless="${gsList.isEmpty()}">
+        <h5 class="card-header">
+            <a data-toggle="collapse" href="#cardCollapse" aria-expanded="true" aria-controls="cardCollapse" id="cardHeading" class="d-block">
+                Karte:
+                <i class="material-icons align-middle fa"> arrow_drop_down </i>
+            </a>
+        </h5>
+        <div id="cardCollapse" class="collapse show overflow-auto" aria-labelledby="heading-example">
+            <div class="container-responsive">
+                <div class="row">
+                    <div  class="col col-lg">
+                        <div id="mapid" ></div>
+                        <script>initMap(rad, list);</script>
+                    </div>    
+                </div>
+            </div>
         </div>
     </div>
 
