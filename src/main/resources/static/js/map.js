@@ -37,28 +37,48 @@ function showStations(list) {
     var gs = list[0][i];
     var lat = gs.lat;
     var lon = gs.lng;
-    var contentString = "<h6><b>" + gs.name + "</b></h6>"
-      + "<p>"+ gs.street + " " + gs.houseNumber + " <br>" + gs.postCode + " "+ gs.place +"</p>"
-      + "<p><b>aktuelle Preise:</b><br>"
-      + "Diesel: " + gs.diesel + "€ <br>"
-      + "E5: " + gs.e5 + "€ <br>"
-      + "E10: " + gs.e10 + "€ </p>";
-    var favList = Cookies.get("cfavourites");
-    if (favList == undefined) 
-    {
-      favList = new String("");
-    }
-    if (!favList.includes(gs.id)) 
-    {
 
-      contentString += "<button id=\"favourite" + gs.id + "\" class=\"btn btn-primary btn-sm\" onclick=\"toggleFav(this.id) \"><i data-toggle=\"tooltip\" data-placement=\"right\" title=\"zu Favoriten hinzufügen\" class=\"material-icons align-middle\"> favorite </i></button >"
-    }
-    else 
+    var favButton = ""; 
+    var favList = Cookies.get("cfavourites");
+    if (favList == undefined) favList = new String("");
+    if (!favList.includes(gs.id)) favButton= "<button id=\"favourite" + gs.id + "\" class=\"btn btn-primary btn-sm\" onclick=\"toggleFav(this.id) \"><i data-toggle=\"tooltip\" data-placement=\"right\" title=\"zu Favoriten hinzufügen\" class=\"material-icons align-middle\"> favorite </i></button >"; 
+    else favButton = "<button id=\"\'favourite" + gs.id + "\" class=\"btn btn-primary btn-sm\" onclick=\"toggleFav(this.id) \"><i data-toggle=\"tooltip\" data-placement=\"right\" title=\"von Favoriten entfernen\" class= \"material-icons align-middle\" > clear </i ></button >"; 
+    
+    var contentString = "<div class='row'> <div class='col-9'><h6><b>" + gs.name + "</b></h6></div> <div class='col-3'>" + favButton + "</div> </div>"
+      + "<p style='font-size: 14px'>"+ gs.street + " " + gs.houseNumber + " <br>" + gs.postCode + " "+ gs.place +"</p>"
+      + "<p style='font-size: 14px'> <b> Entfernung: </b>"+ " " + gs.dist + " km </p>";
+    
+    var fuelType = fuel;
+    
+    var priceTableHeader = "<tr>"; 
+    if(fuel == "diesel" || fuel == "all") priceTableHeader += "<th>Diesel</th>"; 
+    if(fuel == "e5" || fuel == "all") priceTableHeader += "<th>E5</th>"; 
+    if(fuel == "e10" || fuel == "all") priceTableHeader += "<th>E10</th>"; 
+    priceTableHeader += "</tr>";
+
+    var priceTableBody = "<tr>"; 
+    if(fuel == "diesel" || fuel == "all")
     {
-      contentString += "<button id=\"\'favourite" + gs.id + "\" class=\"btn btn-primary btn-sm\" onclick=\"toggleFav(this.id) \"><i data-toggle=\"tooltip\" data-placement=\"right\" title=\"von Favoriten entfernen\" class= \"material-icons align-middle\" > clear </i ></button >"
+      priceTableBody += "<td>" + gs.diesel + "€" + "</td>"; 
     }
+    if(fuel == "e5" || fuel == "all")
+    {
+      priceTableBody += "<td>" + gs.e5 + "€" + "</td>"; 
+    }
+    if(fuel == "e10" || fuel == "all")
+    {
+      priceTableBody += "<td>" + gs.e10 + "€" + "</td>"; 
+    }
+    priceTableBody += "</tr>"; 
+
+    var tableString = "<table style='width: 100%; font-size: 19px;'>" + priceTableHeader + priceTableBody + "</table>";
+
+    contentString += tableString; 
 
     var popup = L.popup({
+      minWidth: 250, 
+      maxWidth: 250, 
+      maxHeight: 350,
       closeOnClick: false,
       autoClose: false,
       closeButton: false,

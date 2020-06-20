@@ -30,6 +30,10 @@
     
     <script th:inline="javascript">
         /*<![CDATA[*/
+        var fuel = /*[[${fuelType}]]*/ '';
+        /*]]>*/
+
+        /*<![CDATA[*/
         var rad = /*[[${rad}]]*/ '';
         /*]]>*/
         var list = /*[[${jsList}]]*/ [];
@@ -443,7 +447,7 @@
                 url: 'https://api.opencagedata.com/geocode/v1/json',
                 method: 'GET',
                 data: {
-                'key': key_leaflet,
+                'key': key_opencage,
                 'q': query,
                 'no_annotations': 1
                 },
