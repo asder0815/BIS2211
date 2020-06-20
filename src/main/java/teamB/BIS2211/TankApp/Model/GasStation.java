@@ -1,8 +1,8 @@
 package teamB.BIS2211.TankApp.Model;
 
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Calendar;
 
 import com.google.gson.JsonArray;
@@ -159,19 +159,15 @@ public class GasStation
 
 	public int getCurrentPrediction(String type)
 	{
-		String urlString =  "https://www.volzinnovation.com/fuel_price_variations_germany/data/" + this.id.replace("-", "/") + "/" + type.toLowerCase() + ".json"; 
-        URL url;
-        HttpURLConnection request;
         try 
         {
-            url = new URL(urlString); 
-            request = (HttpURLConnection) url.openConnection();
-            request.setDoOutput(true);
-            request.setRequestMethod("GET");
-            request.connect();
-            final JsonElement element = JsonParser.parseReader(new InputStreamReader(request.getInputStream()));
-            final JsonArray arr = element.getAsJsonArray();
-			float priceDev = arr.get(getCurrentHour()).getAsJsonObject().get("price").getAsFloat();
+			String path = "gasStationData/data/" + this.id.replace("-", "/") + "/" + type.toLowerCase() + ".json"; 
+            Reader reader = Files.newBufferedReader(Paths.get(path));
+            JsonElement element = JsonParser.parseReader(reader); 
+            JsonArray arr = element.getAsJsonArray();
+            float priceDev = arr.get(getCurrentHour()).getAsJsonObject().get("price").getAsFloat();        
+            reader.close();
+
 			switch(type)
 			{
 				case "diesel": 
