@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="card text-white bg-dark border-primary text-center mb-3 w-75" th:unless="${username.equals('')}">
+    <div style="width: 96%" class="card text-white bg-dark border-primary text-center mb-3" th:unless="${username.equals('')}">
         <h5 class="card-header">
             <a data-toggle="collapse" href="#dataCard" aria-expanded="true" aria-controls="dataCard" class="d-block">
                 Meine Tankbelege:
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div class="card text-white bg-dark border-primary text-center mb-3 w-75" id="inputCard" th:unless="${username.equals('')}">
+    <div style="width: 96%" class="card text-white bg-dark border-primary text-center mb-3" id="inputCard" th:unless="${username.equals('')}">
         <h5 class="card-header">
             <a data-toggle="collapse" href="#addDialog" aria-expanded="true" aria-controls="addDialog" class="d-block">
                 Tankbeleg hinzufügen:
@@ -178,6 +178,14 @@
     var username = /*[[${username}]]*/ '';
     /*]]>*/
 
+    /*<![CDATA[*/
+    var key_opencage = /*[[${key_opencage}]]*/ '';
+    /*]]>*/
+
+    /*<![CDATA[*/
+    var key_tankerkoenig = /*[[${key_tankerkoenig}]]*/ '';
+    /*]]>*/
+
     var gsID = ""; 
     var dieselPrice = false; 
     var e5Price = false; 
@@ -203,7 +211,7 @@
                 url: 'https://api.opencagedata.com/geocode/v1/json',
                 method: 'GET',
                 data: {
-                'key': '72c67bc57c7547d0ac9f6a396c414be8',
+                'key': key_opencage,
                 'q': query,
                 'no_annotations': 1
                 },
@@ -344,7 +352,7 @@
             url: "https://creativecommons.tankerkoenig.de/json/prices.php",
             data: {
                 ids: station_ids_string,
-                apikey: '97200d44-73e2-51ae-f60b-8df9e06c0b0e'
+                apikey: key_tankerkoenig
             },
             success: function( response ) {
                 if (response.ok) {
@@ -414,6 +422,7 @@
     function addLD(name, gsID, amount, type, price)
     {
         if(price == false) alert("Bitte eine gültige Treibstoffart auswählen!");
+        else if(!isNumber(document.getElementById("amountField").value)) alert("Bitte eine gültige Menge eingeben!");
         else
         {
             var myHeaders = new Headers();
@@ -455,6 +464,13 @@
     {
         jQuery.noConflict();
         $("#myModal").modal("hide")
+    }
+
+    function isNumber(n) 
+    {
+        'use strict';
+        n = n.replace(/\./g, '').replace(',', '.');
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
     </script>
 </body>

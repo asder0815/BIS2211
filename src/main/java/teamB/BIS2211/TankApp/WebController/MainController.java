@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import teamB.BIS2211.TankApp.ApiData.ApiData;
+import teamB.BIS2211.TankApp.ApiData.ApiKey;
 import teamB.BIS2211.TankApp.Model.GasStation;
 
 @Controller
@@ -27,16 +28,18 @@ public class MainController
   {
     model.addAttribute("name", name);
     final ArrayList<GasStation> gsList = ApiData.getJSON(convertReqestparameter(lat), convertReqestparameter(lon), convertReqestparameter(rad));
-    //final ArrayList<GasStation> gsList = ApiData.createTestData(); //for testing purposes to not consume API data
     model.addAttribute("gsList", gsList);
     final String[] favourites = splitFavString(favs); 
     final ArrayList<GasStation> favList = ApiData.getJSON(favourites);
-    //final ArrayList<GasStation> favList = ApiData.createTestData(); //for testing purposes to not consume API data
     model.addAttribute("favList", favList);
     model.addAttribute("favString", favs);
     model.addAttribute("rad", rad);
     model.addAttribute("jsList", Arrays.asList(gsList));
     model.addAttribute("fuelType", fuelType);
+    String key_opencage = new ApiKey().getApiKey("opencage"); 
+    String key_leaflet = new ApiKey().getApiKey("leaflet");
+    model.addAttribute("key_opencage", key_opencage); 
+    model.addAttribute("key_leaflet", key_leaflet);
 		return "main";
   }
 

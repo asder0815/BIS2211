@@ -33,6 +33,14 @@
         var rad = /*[[${rad}]]*/ '';
         /*]]>*/
         var list = /*[[${jsList}]]*/ [];
+
+        /*<![CDATA[*/
+        var key_opencage = /*[[${key_opencage}]]*/ '';
+        /*]]>*/
+
+        /*<![CDATA[*/
+        var key_leaflet = /*[[${key_leaflet}]]*/ '';
+        /*]]>*/
     </script>
 
     <header>
@@ -115,12 +123,22 @@
         </div>
     </div>
 
-    <div class="container-responsive " style= "margin-left: 2%; margin-top: 20px; margin-bottom: 20px" th:unless="${gsList.isEmpty()}" >
-        <div class="row">
-                <div  class="col col-lg">
-                    <div id="mapid" ></div>
-                    <script>initMap(rad, list);</script>
-                </div>    
+    <div style="width: 96%" class="card text-white bg-dark border-primary text-center mb-3" th:unless="${gsList.isEmpty()}">
+        <h5 class="card-header">
+            <a data-toggle="collapse" href="#cardCollapse" aria-expanded="true" aria-controls="cardCollapse" id="cardHeading" class="d-block">
+                Karte:
+                <i class="material-icons align-middle fa"> arrow_drop_down </i>
+            </a>
+        </h5>
+        <div id="cardCollapse" class="collapse show overflow-auto" aria-labelledby="heading-example">
+            <div class="container-responsive">
+                <div class="row">
+                    <div  class="col col-lg">
+                        <div id="mapid" ></div>
+                        <script>initMap(rad, list);</script>
+                    </div>    
+                </div>
+            </div>
         </div>
     </div>
 
@@ -333,7 +351,7 @@
                 url: 'https://api.opencagedata.com/geocode/v1/json',
                 method: 'GET',
                 data: {
-                'key': '72c67bc57c7547d0ac9f6a396c414be8',
+                'key': key_opencage,
                 'q': query,
                 'no_annotations': 1
                 },
@@ -425,7 +443,7 @@
                 url: 'https://api.opencagedata.com/geocode/v1/json',
                 method: 'GET',
                 data: {
-                'key': '72c67bc57c7547d0ac9f6a396c414be8',
+                'key': key_leaflet,
                 'q': query,
                 'no_annotations': 1
                 },
