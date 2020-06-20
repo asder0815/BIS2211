@@ -32,3 +32,6 @@ build/
 
 ### Price Data ### 
 gasStationData/
+
+###
+**/api.properties
