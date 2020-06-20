@@ -308,7 +308,9 @@
         {
             var gs = jsonData.gasStations[i];
             var gsCity = gs.city; 
-            var areEqual = city == gsCity;
+            var upperGsCity = new String(gsCity).toUpperCase();
+            var upperCity = new String(city).toUpperCase();
+            var areEqual = upperCity === upperGsCity;
             if(areEqual) addGSToList(gs); 
         }
         if(!list.hasChildNodes())
