@@ -23,6 +23,7 @@ public class ScheduledTasks {
     @Autowired
     LeaderboardDataService leaderboardDataService;
     
+    //@Scheduled(cron = "0 30 3 1/1 * ? *")
     //@Scheduled(fixedRate = 86400000)
     @Scheduled(fixedRate = 30000)
 	public void databaseMaintenance() {
