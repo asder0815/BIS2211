@@ -12,7 +12,7 @@ function initMap(rad, list) {
     zoomOffset: -1,
     closePopupOnClick: false,
     zoom: 100,
-    accessToken: 'pk.eyJ1Ijoia2FyYWRlbmIiLCJhIjoiY2tiZjNyMWRuMDVrcDJ5bWxqd2xkMmlrayJ9.9dfIhA52TTDorCgtuLrAsg'
+    accessToken: key_leaflet
   }).addTo(mymap);
 
   function onLocationFound(e) {

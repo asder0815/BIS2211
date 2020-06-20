@@ -33,6 +33,14 @@
         var rad = /*[[${rad}]]*/ '';
         /*]]>*/
         var list = /*[[${jsList}]]*/ [];
+
+        /*<![CDATA[*/
+        var key_opencage = /*[[${key_opencage}]]*/ '';
+        /*]]>*/
+
+        /*<![CDATA[*/
+        var key_leaflet = /*[[${key_leaflet}]]*/ '';
+        /*]]>*/
     </script>
 
     <header>
@@ -333,7 +341,7 @@
                 url: 'https://api.opencagedata.com/geocode/v1/json',
                 method: 'GET',
                 data: {
-                'key': '72c67bc57c7547d0ac9f6a396c414be8',
+                'key': key_opencage,
                 'q': query,
                 'no_annotations': 1
                 },
@@ -425,7 +433,7 @@
                 url: 'https://api.opencagedata.com/geocode/v1/json',
                 method: 'GET',
                 data: {
-                'key': '72c67bc57c7547d0ac9f6a396c414be8',
+                'key': key_leaflet,
                 'q': query,
                 'no_annotations': 1
                 },
