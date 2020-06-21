@@ -64,3 +64,10 @@ td, th
     padding-left: 50px;
     padding-right: 50px;
 }
+
+.custom .leaflet-popup-tip,
+.custom .leaflet-popup-content-wrapper 
+{
+    background: #343A40;
+    color: #ffffff;
+}

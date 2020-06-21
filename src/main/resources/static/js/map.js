@@ -76,6 +76,7 @@ function showStations(list) {
     contentString += tableString; 
 
     var popup = L.popup({
+      className: 'custom',
       minWidth: 250, 
       maxWidth: 250, 
       maxHeight: 350,
