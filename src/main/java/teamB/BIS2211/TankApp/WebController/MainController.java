@@ -23,6 +23,9 @@ public class MainController
     @RequestParam(name="lon", required=false, defaultValue="") final String lon,
     @RequestParam(name="rad", required=false, defaultValue="") final String rad,
     @RequestParam(name="fuelType", required=false, defaultValue="all") final String fuelType,
+    @RequestParam(name="city", required=false, defaultValue="") final String city,
+    @RequestParam(name="street", required=false, defaultValue="") final String street,
+    @RequestParam(name="houseNr", required=false, defaultValue="") final String houseNr,
     @CookieValue(value = "cfavourites", defaultValue = "") String favs,
     final Model model) 
   {
@@ -57,6 +60,10 @@ public class MainController
     model.addAttribute("jsList", Arrays.asList(gsList));
 
     model.addAttribute("fuelType", fuelType);
+
+    model.addAttribute("cityValue", city);
+    model.addAttribute("sreetValue", street);
+    model.addAttribute("houseNrValue", houseNr);
 
     String key_opencage = new ApiKey().getApiKey("opencage"); 
     String key_leaflet = new ApiKey().getApiKey("leaflet");

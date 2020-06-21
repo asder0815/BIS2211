@@ -81,22 +81,22 @@
                 </a>
             </h5>
             <div id="searchDialog" class="collapse show" aria-labelledby="heading-example">
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <input type="text" class="form-control" placeholder="Ort" id="cityField">
-                    </div>
-                    <div class="col-3">
-                        <input type="text" class="form-control" placeholder="Straße" id="streetField">
-                    </div>
-                    <div class="col-2">
-                        <input type="text" class="form-control" placeholder="Nummer" id="houseNrField">
-                    </div>
-                    <div class="col-2">
-                        <button class="btn btn-primary" onclick="geocodeWithBrowserLocation()"><i data-placement="right" title="Meine Position bestimmen" class="material-icons align-middle"> near_me </i></button>
-                    </div>
-                </div>
-                <br>
                 <form class="form-horizontal" id="searchForm" th:action="@{/main}">
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <input type="text" class="form-control" placeholder="Ort" id="cityField" th:name="city" th:value="${cityValue}" onchange="toggleAutomaticFill()">
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control" placeholder="Straße" id="streetField" th:name="street" th:value="${sreetValue}" onchange="toggleAutomaticFill()">
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" placeholder="Nummer" id="houseNrField" th:name="houseNr" th:value="${houseNrValue}" onchange="toggleAutomaticFill()">
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary" onclick="geocodeWithBrowserLocation()"><i data-placement="right" title="Meine Position bestimmen" class="material-icons align-middle"> near_me </i></button>
+                        </div>
+                    </div>
+                    <br>
                     <div class="row justify-content-center">
                         <div class="col-md-auto">
                             <h4> Treibstoffart: </h4>
@@ -410,7 +410,7 @@
         {
             if(navigator.geolocation)
             {
-                navigator.geolocation.getCurrentPosition(getPosition, showError);
+                navigator.geolocation.getCurrentPosition(getPositionBrowserlocation, showErrorBrowserlocation);
             } 
             else
             {
@@ -418,7 +418,7 @@
             }
         }
             
-        function getPosition(position)
+        function getPositionBrowserlocation(position)
         {
             console.log("Lat:" + position.coords.latitude);  
             console.log("Lon:" + position.coords.longitude);
@@ -426,10 +426,9 @@
             document.getElementById("lonField").value = position.coords.longitude; 
             setAdressfield(position.coords.latitude, position.coords.longitude); 
             automaticFill = true; 
-            search(); 
         }
             
-        function showError(error)
+        function showErrorBrowserlocation(error)
         {
             switch(error.code) 
             {
@@ -527,6 +526,11 @@
                 });
                showGraph(graphArray);
             });
+        }
+
+        function toggleAutomaticFill()
+        {
+            if(automaticFill == true) automaticFill = false; 
         }
     </script>
 </body>
