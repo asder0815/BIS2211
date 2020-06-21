@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import teamB.BIS2211.TankApp.ApiData.ApiKey;
 import teamB.BIS2211.TankApp.Model.LeaderboardData;
 import teamB.BIS2211.TankApp.Model.LeaderboardDataService;
 
@@ -25,9 +24,9 @@ public class UserDataController
         model.addAttribute("username", username);
         ArrayList<LeaderboardData> lbData = leaderboardDataService.getDataByUser(username); 
         model.addAttribute("lbData", lbData);
-        String key_opencage = new ApiKey().getApiKey("opencage");
+        String key_opencage = "72c67bc57c7547d0ac9f6a396c414be8";
         model.addAttribute("key_opencage", key_opencage);
-        String key_tankerkoenig = new ApiKey().getApiKey("tankerkoenig");
+        String key_tankerkoenig = "97200d44-73e2-51ae-f60b-8df9e06c0b0e";
         model.addAttribute("key_tankerkoenig", key_tankerkoenig);
         return "userData";
     }

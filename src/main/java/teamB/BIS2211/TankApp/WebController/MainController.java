@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import teamB.BIS2211.TankApp.ApiData.ApiData;
-import teamB.BIS2211.TankApp.ApiData.ApiKey;
 import teamB.BIS2211.TankApp.Model.GasStation;
 
 @Controller
@@ -65,8 +64,8 @@ public class MainController
     model.addAttribute("sreetValue", street);
     model.addAttribute("houseNrValue", houseNr);
 
-    String key_opencage = new ApiKey().getApiKey("opencage"); 
-    String key_leaflet = new ApiKey().getApiKey("leaflet");
+    String key_opencage = "72c67bc57c7547d0ac9f6a396c414be8"; 
+    String key_leaflet = "pk.eyJ1Ijoia2FyYWRlbmIiLCJhIjoiY2tiZjNyMWRuMDVrcDJ5bWxqd2xkMmlrayJ9.9dfIhA52TTDorCgtuLrAsg";
     model.addAttribute("key_opencage", key_opencage); 
 
     model.addAttribute("key_leaflet", key_leaflet);

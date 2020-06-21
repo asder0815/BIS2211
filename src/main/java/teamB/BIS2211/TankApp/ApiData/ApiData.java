@@ -72,12 +72,12 @@ public class ApiData
 
     private static String buildRequestString(final float lat, final float lon, final float radius) 
     {
-        return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + new ApiKey().getApiKey("tankerkoenig");
+        return "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + lat + "&lng=" + lon + "&rad=" + radius + "&sort=dist&type=all&apikey=" + "97200d44-73e2-51ae-f60b-8df9e06c0b0e";
     }
 
     private static String buildRequestString(String id)
     {
-    	return "https://creativecommons.tankerkoenig.de/json/detail.php?id=" + id + "&apikey=" + new ApiKey().getApiKey("tankerkoenig"); 
+    	return "https://creativecommons.tankerkoenig.de/json/detail.php?id=" + id + "&apikey=" + "97200d44-73e2-51ae-f60b-8df9e06c0b0e"; 
     }
 
     public static ArrayList<GasStation> createTestData()
