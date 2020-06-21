@@ -33,6 +33,7 @@ public class ScheduledTasks
 
     @Scheduled(cron = "0 30 3 1/1 * ?")
 	public void databaseMaintenance() {
+        updatePriceDataRepo(); 
         System.out.println("Starting database maintenance");
         ArrayList<LeaderboardData> ldData = leaderboardDataService.getAllData(); 
         for(LeaderboardData data: ldData)
