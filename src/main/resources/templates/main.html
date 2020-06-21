@@ -471,27 +471,16 @@
 
         function showGraph(ar)
         {
-            var data = google.visualization.arrayToDataTable(
-                ar
-            );
-
+            var data = google.visualization.arrayToDataTable(ar);
             var options = {
-            title: 'Preisabweichung nach Stunden (Vortag)',
-            curveType: 'function',
-            legend: { position: 'bottom' },
-            chartArea: {width:"100%", height:"70%"},
-            pointSize: 3,
-            dataOpacity: 0.8
-
-        
-            
+                title: 'Preisabweichung nach Stunden (Vortag)',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                chartArea: {width:"100%", height:"70%"},
+                pointSize: 3
             };
-
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
             chart.draw(data, options);
-            
-
             openModal();   
         }
 
@@ -518,7 +507,6 @@
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
                 var graphArray = [];
                 var header = ["Stunde", "Preisabweichung", {"type": "string","role": "style"}];
                 graphArray.push(header);
@@ -526,7 +514,7 @@
                 var h = d.getHours();
                 response.forEach(element => {
                     var chickenCamData = [element.hour,element.price,null];
-                    if(h == element.hour)chickenCamData=[element.hour,element.price,"point{size:8; shape-type:diamond;fill-color:#FF0000;}"]
+                    if(h == element.hour)chickenCamData=[element.hour,element.price,"point{size:7; shape-type:diamond;fill-color:#FF0000;}"]
                     graphArray.push(chickenCamData);
                 });
                showGraph(graphArray);
