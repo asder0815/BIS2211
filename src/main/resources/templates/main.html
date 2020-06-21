@@ -313,10 +313,10 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">ByFabianandFabianalone</h4>
+              <h4 class="modal-title">Preisentwicklung</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body d-flex justify-content-center">
                 <div id="curve_chart" ></div> 
             </div>
             <div class="modal-footer">
@@ -526,7 +526,7 @@
                 var h = d.getHours();
                 response.forEach(element => {
                     var chickenCamData = [element.hour,element.price,null];
-                    if(h == element.hour)chickenCamData=[element.hour,element.price,"point{size:6; shape-type:circle;fill-color:#5e1224;}"]
+                    if(h == element.hour)chickenCamData=[element.hour,element.price,"point{size:8; shape-type:diamond;fill-color:#FF0000;}"]
                     graphArray.push(chickenCamData);
                 });
                showGraph(graphArray);
