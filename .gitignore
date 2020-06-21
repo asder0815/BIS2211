@@ -32,6 +32,3 @@ build/
 
 ### Price Data ### 
 gasStationData/
-
-### properties file ###
-**/api.properties
