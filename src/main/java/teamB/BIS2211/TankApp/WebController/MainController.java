@@ -27,18 +27,41 @@ public class MainController
     final Model model) 
   {
     model.addAttribute("name", name);
+
     final ArrayList<GasStation> gsList = ApiData.getJSON(convertReqestparameter(lat), convertReqestparameter(lon), convertReqestparameter(rad));
+    for(GasStation gs: gsList)
+    {
+      gs.setPredictionDiesel(gs.getCurrentPrediction("diesel"));
+      gs.setPredictionE5(gs.getCurrentPrediction("e5"));
+      gs.setPredictionE10(gs.getCurrentPrediction("e10"));
+    }
     model.addAttribute("gsList", gsList);
+
     final String[] favourites = splitFavString(favs); 
     final ArrayList<GasStation> favList = ApiData.getJSON(favourites);
+    for(GasStation gs: favList)
+    {
+      gs.setPredictionDiesel(gs.getCurrentPrediction("diesel"));
+      gs.setPredictionDiesel(gs.getCurrentPrediction("e5"));
+      gs.setPredictionDiesel(gs.getCurrentPrediction("e10"));
+    }
     model.addAttribute("favList", favList);
+
     model.addAttribute("favString", favs);
+
     model.addAttribute("rad", rad);
+
+    model.addAttribute("lat", lat);
+    model.addAttribute("lon", lon);
+
     model.addAttribute("jsList", Arrays.asList(gsList));
+
     model.addAttribute("fuelType", fuelType);
+
     String key_opencage = new ApiKey().getApiKey("opencage"); 
     String key_leaflet = new ApiKey().getApiKey("leaflet");
     model.addAttribute("key_opencage", key_opencage); 
+
     model.addAttribute("key_leaflet", key_leaflet);
 		return "main";
   }

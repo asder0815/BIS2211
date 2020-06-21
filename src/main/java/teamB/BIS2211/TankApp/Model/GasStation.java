@@ -25,6 +25,9 @@ public class GasStation
 	private boolean isOpen; 
 	private String houseNumber; 
 	private String postCode; 
+	private int predictionDiesel;
+	private int predictionE5; 
+	private int predictionE10;
 	
 	public String getOpenStatus() {
 		if (this.isOpen == true)  return "geöffnet"; 
@@ -136,6 +139,7 @@ public class GasStation
 		this.postCode = postCode;
 	}
 	
+	
 	public GasStation(){}
 	
 	public GasStation(final String id, final String name, final String brand, final String street, final String place, final float lat, final float lng,
@@ -202,5 +206,29 @@ public class GasStation
 	public String toString()
 	{
 		return name + " in: " + street + " " + houseNumber + " " + postCode + " " + place + " " + diesel + " " + e5 + " " + e10; 
+	}
+
+	public int getPredictionDiesel() {
+		return predictionDiesel;
+	}
+
+	public void setPredictionDiesel(int predictionDiesel) {
+		this.predictionDiesel = predictionDiesel;
+	}
+
+	public int getPredictionE5() {
+		return predictionE5;
+	}
+
+	public void setPredictionE5(int predictionE5) {
+		this.predictionE5 = predictionE5;
+	}
+
+	public int getPredictionE10() {
+		return predictionE10;
+	}
+
+	public void setPredictionE10(int predictionE10) {
+		this.predictionE10 = predictionE10;
 	}
 }

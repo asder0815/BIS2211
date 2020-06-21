@@ -30,6 +30,18 @@
     
     <script th:inline="javascript">
         /*<![CDATA[*/
+        var fuel = /*[[${fuelType}]]*/ '';
+        /*]]>*/
+
+        /*<![CDATA[*/
+        var latCoord = /*[[${lat}]]*/ '';
+        /*]]>*/
+
+        /*<![CDATA[*/
+        var lonCoord = /*[[${lon}]]*/ '';
+        /*]]>*/
+
+        /*<![CDATA[*/
         var rad = /*[[${rad}]]*/ '';
         /*]]>*/
         var list = /*[[${jsList}]]*/ [];
@@ -309,10 +321,10 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">ByFabianandFabianalone</h4>
+              <h4 class="modal-title">Preisentwicklung</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body d-flex justify-content-center">
                 <div id="curve_chart" ></div> 
             </div>
             <div class="modal-footer">
@@ -443,7 +455,7 @@
                 url: 'https://api.opencagedata.com/geocode/v1/json',
                 method: 'GET',
                 data: {
-                'key': key_leaflet,
+                'key': key_opencage,
                 'q': query,
                 'no_annotations': 1
                 },
@@ -467,27 +479,16 @@
 
         function showGraph(ar)
         {
-            var data = google.visualization.arrayToDataTable(
-                ar
-            );
-
+            var data = google.visualization.arrayToDataTable(ar);
             var options = {
-            title: 'Preisabweichung nach Stunden (Vortag)',
-            curveType: 'function',
-            legend: { position: 'bottom' },
-            chartArea: {width:"100%", height:"70%"},
-            pointSize: 3,
-            dataOpacity: 0.8
-
-        
-            
+                title: 'Preisabweichung nach Stunden (Vortag)',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                chartArea: {width:"100%", height:"70%"},
+                pointSize: 3
             };
-
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
             chart.draw(data, options);
-            
-
             openModal();   
         }
 
@@ -514,7 +515,6 @@
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
                 var graphArray = [];
                 var header = ["Stunde", "Preisabweichung", {"type": "string","role": "style"}];
                 graphArray.push(header);
@@ -522,7 +522,7 @@
                 var h = d.getHours();
                 response.forEach(element => {
                     var chickenCamData = [element.hour,element.price,null];
-                    if(h == element.hour)chickenCamData=[element.hour,element.price,"point{size:6; shape-type:circle;fill-color:#5e1224;}"]
+                    if(h == element.hour)chickenCamData=[element.hour,element.price,"point{size:7; shape-type:diamond;fill-color:#FF0000;}"]
                     graphArray.push(chickenCamData);
                 });
                showGraph(graphArray);
