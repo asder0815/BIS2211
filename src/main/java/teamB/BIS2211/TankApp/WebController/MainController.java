@@ -51,6 +51,9 @@ public class MainController
 
     model.addAttribute("rad", rad);
 
+    model.addAttribute("lat", lat);
+    model.addAttribute("lon", lon);
+
     model.addAttribute("jsList", Arrays.asList(gsList));
 
     model.addAttribute("fuelType", fuelType);

@@ -9,7 +9,7 @@ function initMap(rad, list) {
     maxZoom: 20,
     closePopupOnClick: false,
     scrollWheelZoom: false
-  }).locate({setView: true, maxZoom: 20});
+  });
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -21,12 +21,12 @@ function initMap(rad, list) {
     accessToken: key_leaflet
   }).addTo(mymap);
 
-  function onLocationFound(e) {
-    L.marker(e.latlng).addTo(mymap);
-    L.circle(e.latlng, radFloat).addTo(mymap);
-  }
-  mymap.on('locationfound', onLocationFound);
+  L.marker(L.latLng(latCoord, lonCoord)).addTo(mymap);
+  L.circle(L.latLng(latCoord, lonCoord), radFloat).addTo(mymap);
+
   showStations(list);
+
+  mymap.setView(L.latLng(latCoord, lonCoord), 17); 
 }
 
 function showStations(list) {
@@ -93,6 +93,7 @@ function showStations(list) {
         closeOnClick: false,
         autoClose: false,
         closeButton: false,
+        autoPan: false
       })
         .setLatLng([lat, lon])
         .setContent(contentString)
