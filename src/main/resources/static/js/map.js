@@ -43,7 +43,7 @@ function showStations(list) {
       var favList = Cookies.get("cfavourites");
       if (favList == undefined) favList = new String("");
       if (!favList.includes(gs.id)) favButton= "<button id=\"favourite" + gs.id + "\" class=\"btn btn-primary btn-sm\" onclick=\"toggleFav(this.id) \"><i data-toggle=\"tooltip\" data-placement=\"right\" title=\"zu Favoriten hinzufügen\" class=\"material-icons align-middle\"> favorite </i></button >"; 
-      else favButton = "<button id=\"\'favourite" + gs.id + "\" class=\"btn btn-primary btn-sm\" onclick=\"toggleFav(this.id) \"><i data-toggle=\"tooltip\" data-placement=\"right\" title=\"von Favoriten entfernen\" class= \"material-icons align-middle\" > clear </i ></button >"; 
+      else favButton = "<button id=\"favourite" + gs.id + "\" class=\"btn btn-primary btn-sm\" onclick=\"toggleFav(this.id) \"><i data-toggle=\"tooltip\" data-placement=\"right\" title=\"von Favoriten entfernen\" class= \"material-icons align-middle\" > clear </i ></button >";
       
       var contentString = "<div class='row'> <div class='col-9'><h6><b>" + gs.name + "</b></h6></div> <div class='col-3'>" + favButton + "</div> </div>"
         + "<p style='font-size: 14px'>"+ gs.street + " " + gs.houseNumber + " <br>" + gs.postCode + " "+ gs.place +"</p>"
