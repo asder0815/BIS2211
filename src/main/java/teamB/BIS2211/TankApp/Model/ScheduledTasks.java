@@ -31,6 +31,10 @@ public class ScheduledTasks
     @Autowired
     LeaderboardDataService leaderboardDataService;
 
+    /**
+     * Updated das lokale Repository mit neuen Daten einmal am Tag um 3:30 morgens. 
+     * Durchsucht die DB auf fehlende gesparte Preise und berechnet diese.
+     */
     @Scheduled(cron = "0 30 3 1/1 * ?")
 	public void databaseMaintenance() {
         updatePriceDataRepo(); 
@@ -42,7 +46,10 @@ public class ScheduledTasks
             System.out.println("------------------------------");
         }
     }
-
+/**
+ * Berechnet die Abweichung vom Durchschnittspreis für einen bestimmten Datensatz.
+ * @param data
+ */
     private void calculateAveragePrice(LeaderboardData data)
     {
         System.out.println("Checking entry with ID: " + data.getId()); 
@@ -58,7 +65,12 @@ public class ScheduledTasks
             leaderboardDataService.updateData(data); 
         }
     }
-
+/**
+ * Sucht sich aus dem lokalen Repository die Preisabweichung vom Standardpreis zur angegebenen Stunde.
+ * @param data
+ * @param hour
+ * @return
+ */
     private static float getPriceDeviationByHour(LeaderboardData data, int hour)
     {
         try 
@@ -87,7 +99,9 @@ public class ScheduledTasks
     }
 
     private static boolean repoReady = false; 
-
+/**
+ * Aktualisiert das lokale Repository durch Git-Pull.
+ */
     private static void updatePriceDataRepo()
     {
         if (!repoReady) 
@@ -119,7 +133,9 @@ public class ScheduledTasks
         }
         git.close(); 
     }
-
+/**
+ * Bei der ersten Verwendung des Programmes muss das Git- Repository gecloned werden, damit dies lokal vorhanden ist.
+ */
     @PostConstruct
     private static void getInitialPriceDataRepo()
     {

@@ -28,7 +28,10 @@ function initMap(rad, list) {
 
   mymap.setView(L.latLng(latCoord, lonCoord), 17); 
 }
-
+/**
+ * Erstellt Pop-ups für jede Tankstelle im Umkreis der ausgewählten Position.
+ * @param {*} list 
+ */
 function showStations(list) {
 
   for (var i = 0; i < list[0].length; i++) 

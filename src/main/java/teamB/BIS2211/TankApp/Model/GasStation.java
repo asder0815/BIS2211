@@ -160,7 +160,11 @@ public class GasStation
 		this.houseNumber = houseNumber;
 		this.postCode = postCode;
 	}
-
+/**
+ * Basierend auf der Abweichung vom Vortag wird ermittelt, ob der Preise zur Zeit gut, schlecht oder neutral ist.
+ * @param type
+ * @return -1: existiert nicht an der Tankstelle, 0: Preis ist schlechter, 1: Preis ist besser, 2: Preis ist gleich.
+ */
 	public int getCurrentPrediction(String type)
 	{
         try 
